@@ -73,7 +73,7 @@
               или набор. Без запретов, перегруза и хаоса.
             </p>
 
-            <div class="hero-actions">
+            <div class="hero-actions hero-main-actions">
               <a
                 class="btn"
                 id="hero-consult-btn"
@@ -91,6 +91,9 @@
                 rel="noopener noreferrer"
               >
                 Telegram-канал
+              </a>
+              <a class="btn btn-small btn-calc" id="hero-calc-btn" href="#calculator">
+                Рассчитать КБЖУ
               </a>
             </div>
           </div>
@@ -228,7 +231,7 @@
         </div>
       </section>
 
-      <section class="section section-soft" aria-labelledby="calculator-title">
+      <section class="section section-soft" id="calculator" aria-labelledby="calculator-title">
         <div class="container">
           <h2 id="calculator-title">Ориентировочный расчёт калорийности и БЖУ</h2>
           <p class="section-intro">
@@ -387,6 +390,7 @@
               "Помогаю выстроить рацион под вашу цель: снижение веса, поддержание формы или набор. Без запретов, перегруза и хаоса.",
             heroConsult: "Личная консультация",
             heroChannel: "Telegram-канал",
+            heroCalc: "Рассчитать КБЖУ",
             aboutTitle: "Обо мне",
             aboutP1:
               "Я — Ирина Халил. Моя история началась не с идеального рациона. Я прошла через ограничения, эксперименты с питанием и личный путь восстановления, прежде чем пришла к понятной и устойчивой системе.",
@@ -446,6 +450,7 @@
               "I help you build a diet for your goal: weight loss, maintenance, or gain. No bans, overload, or chaos.",
             heroConsult: "Personal Consultation",
             heroChannel: "Telegram Channel",
+            heroCalc: "Calculate Calories & Macros",
             aboutTitle: "About Me",
             aboutP1:
               "I am Irina Halil. My story did not start with a perfect diet. I went through restrictions, nutrition experiments, and a personal recovery path before creating a clear and sustainable system.",
@@ -510,6 +515,7 @@
           document.getElementById("hero-lead").textContent = t.heroLead;
           document.getElementById("hero-consult-btn").textContent = t.heroConsult;
           document.getElementById("hero-channel-btn").textContent = t.heroChannel;
+          document.getElementById("hero-calc-btn").textContent = t.heroCalc;
           document.getElementById("about-title").textContent = t.aboutTitle;
           document.getElementById("about-p1").textContent = t.aboutP1;
           document.getElementById("about-p2").textContent = t.aboutP2;

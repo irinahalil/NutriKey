@@ -116,7 +116,34 @@ h2 {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  align-items: center;
   margin-top: 18px;
+}
+
+.hero-main-actions {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 12px;
+  justify-content: start;
+}
+
+.btn-calc {
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .hero-main-actions {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .btn-calc {
+    margin-left: 0;
+  }
+}
+
+#calculator {
+  scroll-margin-top: 88px;
 }
 
 .btn {
