@@ -92,7 +92,12 @@
               >
                 Telegram-канал
               </a>
-              <a class="btn btn-small btn-calc" id="hero-calc-btn" href="#calculator">
+              <a
+                class="btn btn-small btn-calc"
+                id="hero-calc-btn"
+                href="#calculator"
+                aria-label="Перейти к калькулятору калорий и БЖУ"
+              >
                 Рассчитать КБЖУ
               </a>
             </div>
@@ -304,9 +309,11 @@
                 <div class="form-group">
                   <label for="goal">Цель</label>
                   <select id="goal" name="goal" required>
-                    <option value="maintain">Поддержание</option>
-                    <option value="lose">Похудение</option>
-                    <option value="gain">Набор</option>
+                    <option value="lose_fast">Сброс веса</option>
+                    <option value="lose_slow">Медленный сброс веса</option>
+                    <option value="maintain">Поддержание моего нынешнего веса</option>
+                    <option value="gain_slow">Медленное увеличение веса</option>
+                    <option value="gain_fast">Увеличение веса</option>
                   </select>
                 </div>
               </div>
@@ -318,8 +325,9 @@
 
             <div class="calculator-note">
               <p>
-                Для снижения веса калькулятор закладывает мягкий дефицит не более 10% от
-                калорийности поддержания.
+                Для снижения веса можно выбрать более спокойный или более выраженный дефицит
+                относительно поддержания. Для набора — плавный или более активный профицит.
+                Конкретные цифры калькулятор подставляет сам, ориентируясь на ваши данные.
               </p>
               <p>
                 При выраженном голоде, слабости или плато расчёт лучше корректировать индивидуально.
@@ -515,7 +523,14 @@
           document.getElementById("hero-lead").textContent = t.heroLead;
           document.getElementById("hero-consult-btn").textContent = t.heroConsult;
           document.getElementById("hero-channel-btn").textContent = t.heroChannel;
-          document.getElementById("hero-calc-btn").textContent = t.heroCalc;
+          const heroCalcBtn = document.getElementById("hero-calc-btn");
+          heroCalcBtn.textContent = t.heroCalc;
+          heroCalcBtn.setAttribute(
+            "aria-label",
+            lang === "ru"
+              ? "Перейти к калькулятору калорий и БЖУ"
+              : "Go to calorie and macro calculator"
+          );
           document.getElementById("about-title").textContent = t.aboutTitle;
           document.getElementById("about-p1").textContent = t.aboutP1;
           document.getElementById("about-p2").textContent = t.aboutP2;

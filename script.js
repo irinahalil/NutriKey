@@ -39,21 +39,35 @@ if (calorieForm && calorieResult) {
     const maintenanceCalories = bmr * activity;
 
     let targetCalories = maintenanceCalories;
-    let goalText = "Поддержание";
+    let goalText = "Поддержание моего нынешнего веса";
     let goalComment = "Это ориентир для сохранения текущей формы.";
 
-    if (goal === "lose") {
-      targetCalories = maintenanceCalories * 0.9;
-      goalText = "Похудение";
+    if (goal === "lose_fast") {
+      targetCalories = maintenanceCalories * 0.8;
+      goalText = "Сброс веса";
       goalComment =
-        "Для снижения веса заложен мягкий дефицит 10% без более жёсткого урезания калорий.";
+        "Заложен более выраженный дефицит относительно поддержания. Следите за самочувствием и при необходимости смягчайте режим.";
     }
 
-    if (goal === "gain") {
-      targetCalories = maintenanceCalories * 1.1;
-      goalText = "Набор";
+    if (goal === "lose_slow") {
+      targetCalories = maintenanceCalories * 0.9;
+      goalText = "Медленный сброс веса";
       goalComment =
-        "Для набора заложен умеренный профицит, который можно корректировать по динамике.";
+        "Заложен мягкий дефицит относительно поддержания без жёсткого урезания калорий.";
+    }
+
+    if (goal === "gain_slow") {
+      targetCalories = maintenanceCalories * 1.07;
+      goalText = "Медленное увеличение веса";
+      goalComment =
+        "Заложен умеренный профицит относительно поддержания, его можно корректировать по динамике.";
+    }
+
+    if (goal === "gain_fast") {
+      targetCalories = maintenanceCalories * 1.15;
+      goalText = "Увеличение веса";
+      goalComment =
+        "Заложен более высокий профицит относительно поддержания. Оценивайте динамику веса и самочувствие.";
     }
 
     // БЖУ
