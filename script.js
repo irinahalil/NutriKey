@@ -39,6 +39,57 @@ const runRevealAnimations = function () {
   });
 };
 
+const initScrollSpy = function () {
+  const main = document.getElementById("main-content");
+  if (!main) return;
+
+  const sections = Array.from(main.querySelectorAll(":scope > section.section"));
+  if (!sections.length) return;
+
+  const update = function () {
+    const anchorY = window.innerHeight * 0.36;
+    let best = null;
+    let bestScore = -Infinity;
+
+    sections.forEach(function (section) {
+      const rect = section.getBoundingClientRect();
+      const visibleTop = Math.min(window.innerHeight, Math.max(0, rect.top));
+      const visibleBottom = Math.max(0, Math.min(window.innerHeight, rect.bottom));
+      const visibleH = Math.max(0, visibleBottom - visibleTop);
+      if (visibleH < 24) return;
+
+      const sectionCenter = rect.top + rect.height / 2;
+      const dist = Math.abs(sectionCenter - anchorY);
+      const ratio = visibleH / Math.max(rect.height, 1);
+      const score = ratio * 120 - dist * 0.15;
+
+      if (score > bestScore) {
+        bestScore = score;
+        best = section;
+      }
+    });
+
+    sections.forEach(function (section) {
+      section.classList.toggle("section-is-active", section === best);
+    });
+  };
+
+  update();
+
+  let ticking = false;
+  const onScrollOrResize = function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      update();
+      ticking = false;
+    });
+  };
+
+  window.addEventListener("scroll", onScrollOrResize, { passive: true });
+  window.addEventListener("resize", onScrollOrResize, { passive: true });
+};
+
 const runHeroIntroAnimation = function () {
   const heroContent = document.querySelector(".hero-content");
   if (!heroContent) return;
@@ -433,6 +484,7 @@ const initStaggeredMenu = function () {
 runRevealAnimations();
 runHeroIntroAnimation();
 pulseCalculatorOnJump();
+initScrollSpy();
 initTestimonialsCarousel();
 initStaggeredMenu();
 

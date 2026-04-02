@@ -22,8 +22,41 @@ body {
   margin: 0;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background: var(--bg);
+  background-color: var(--bg);
   line-height: 1.6;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 55% at 12% 8%, rgba(240, 160, 114, 0.16), transparent 58%),
+    radial-gradient(ellipse 70% 50% at 92% 18%, rgba(184, 176, 196, 0.32), transparent 52%),
+    radial-gradient(ellipse 65% 45% at 75% 88%, rgba(240, 160, 114, 0.1), transparent 50%),
+    radial-gradient(ellipse 90% 60% at 30% 95%, rgba(141, 137, 150, 0.28), transparent 55%);
+  animation: meshDrift 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes meshDrift {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.06) translate(-1.2%, 1.4%);
+    opacity: 0.94;
+  }
+}
+
+#main-content {
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -354,6 +387,17 @@ body {
   padding: 56px 0;
 }
 
+main#main-content > section.section {
+  position: relative;
+  transition: box-shadow 0.85s ease;
+}
+
+main#main-content > section.section.section-is-active {
+  box-shadow:
+    inset 0 1px 0 0 rgba(240, 160, 114, 0.42),
+    inset 0 0 140px rgba(240, 160, 114, 0.055);
+}
+
 .section-soft {
   background: var(--surface-soft);
   border-top: 1px solid var(--border);
@@ -508,6 +552,52 @@ h2 {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.card.reveal {
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease,
+    box-shadow 0.8s ease,
+    border-color 0.8s ease;
+}
+
+.card.reveal.is-visible {
+  box-shadow:
+    0 22px 52px rgba(31, 21, 39, 0.22),
+    0 0 0 1px rgba(240, 160, 114, 0.26);
+  border-color: rgba(223, 133, 82, 0.45);
+}
+
+.quote.reveal {
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease,
+    box-shadow 0.75s ease,
+    border-left-color 0.75s ease;
+}
+
+.quote.reveal.is-visible {
+  box-shadow: 0 14px 36px rgba(31, 21, 39, 0.12);
+  border-left-color: var(--accent-dark);
+}
+
+.cta-box.reveal {
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease,
+    box-shadow 0.8s ease,
+    border-color 0.8s ease,
+    background 1s ease;
+}
+
+.cta-box.reveal.is-visible {
+  border-color: rgba(240, 160, 114, 0.5);
+  box-shadow:
+    0 20px 48px rgba(31, 21, 39, 0.18),
+    0 0 0 1px rgba(240, 160, 114, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  background: linear-gradient(128deg, #bdb4be 0%, #b0a7b1 45%, #a79eaa 100%);
 }
 
 .hero-animate > * {
@@ -707,6 +797,8 @@ h2 {
 }
 
 .footer {
+  position: relative;
+  z-index: 1;
   border-top: 1px solid var(--border);
   padding: 24px 0 34px;
   color: var(--muted);
@@ -961,6 +1053,19 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  main#main-content > section.section {
+    transition: none !important;
+  }
+
+  main#main-content > section.section.section-is-active {
+    box-shadow: inset 0 1px 0 0 rgba(240, 160, 114, 0.35) !important;
+  }
+
   .reveal,
   .hero-animate > *,
   .result-enter {
@@ -968,6 +1073,22 @@ h2 {
     transform: none !important;
     animation: none !important;
     transition: none !important;
+  }
+
+  .card.reveal.is-visible {
+    box-shadow: var(--shadow) !important;
+    border-color: var(--border) !important;
+  }
+
+  .quote.reveal.is-visible {
+    box-shadow: none !important;
+    border-left-color: var(--accent) !important;
+  }
+
+  .cta-box.reveal.is-visible {
+    box-shadow: none !important;
+    border-color: var(--border) !important;
+    background: linear-gradient(125deg, #b5aeb8 0%, #a7a0ad 100%) !important;
   }
 
   #calculator.calculator-pulse .calculator-card {
