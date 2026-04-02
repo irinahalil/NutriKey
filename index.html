@@ -43,6 +43,19 @@
         </a>
 
         <nav class="nav-actions" aria-label="Основная навигация">
+          <button
+            class="sm-nav-toggle"
+            type="button"
+            id="staggered-menu-toggle"
+            aria-expanded="false"
+            aria-controls="staggered-menu-panel"
+          >
+            <span class="sm-nav-toggle-label" id="menu-toggle-label">Меню</span>
+            <span class="sm-nav-toggle-icon" id="sm-menu-icon" aria-hidden="true">
+              <span class="sm-nav-toggle-line"></span>
+              <span class="sm-nav-toggle-line sm-nav-toggle-line-v"></span>
+            </span>
+          </button>
           <button class="btn btn-small btn-ghost" id="lang-toggle" type="button">
             EN
           </button>
@@ -61,7 +74,7 @@
     </header>
 
     <main id="main-content">
-      <section class="hero section" aria-labelledby="hero-title">
+      <section class="hero section" id="about" aria-labelledby="hero-title">
         <div class="container hero-grid">
           <div class="hero-content">
             <p class="eyebrow" id="hero-eyebrow">Нутрициолог и проводник в понятное питание</p>
@@ -129,7 +142,7 @@
         </div>
       </section>
 
-      <section class="section section-soft" aria-labelledby="expertise-title">
+      <section class="section section-soft" id="expertise" aria-labelledby="expertise-title">
         <div class="container">
           <h2 id="expertise-title">Моя экспертность</h2>
           <p class="section-intro" id="expertise-intro">
@@ -215,104 +228,6 @@
               <li id="aud-li2">с теми, кто хочет наладить питание и выйти из хаоса</li>
               <li id="aud-li3">с людьми, которым нужна ясная и спокойная система действий</li>
             </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="results-title">
-        <div class="container">
-          <h2 id="results-title">Результаты</h2>
-          <p id="results-p1">
-            Для меня результат — это не только изменения в теле, но и ощущение ясности,
-            устойчивости и спокойствия в теме питания.
-          </p>
-
-          <blockquote class="quote">
-            <p id="quote-text">
-              Питание — это не сложно. Сложным его делает хаос.
-              Моя задача — помочь превратить хаос в понятную систему.
-            </p>
-          </blockquote>
-        </div>
-      </section>
-
-      <section class="section testimonials" aria-labelledby="testimonials-title">
-        <div class="container">
-          <h2 id="testimonials-title">Отзывы</h2>
-          <p class="section-intro" id="testimonials-intro">
-            Реальные отклики о работе со мной: без крайностей, с понятным планом и устойчивым результатом.
-          </p>
-
-          <div class="card testimonials-card">
-            <button
-              class="testimonial-arrow testimonial-prev"
-              type="button"
-              id="testimonial-prev"
-              aria-label="Предыдущий отзыв"
-            >
-              &#8592;
-            </button>
-
-            <div class="testimonials-viewport" aria-live="polite">
-              <div class="testimonials-track" id="testimonials-track">
-                <article class="testimonial-slide">
-                  <img
-                    class="testimonial-avatar"
-                    src="https://randomuser.me/api/portraits/women/68.jpg"
-                    alt="Фото клиента Анны"
-                    id="testimonial-avatar-1"
-                    loading="lazy"
-                  />
-                  <h3 id="testimonial-name-1">Анна, 34 года</h3>
-                  <p id="testimonial-text-1">
-                    За 3 месяца ушли 8 кг без срывов. Самое ценное — я перестала жить от диеты до диеты.
-                  </p>
-                </article>
-
-                <article class="testimonial-slide">
-                  <img
-                    class="testimonial-avatar"
-                    src="https://randomuser.me/api/portraits/women/32.jpg"
-                    alt="Фото клиента Марии"
-                    id="testimonial-avatar-2"
-                    loading="lazy"
-                  />
-                  <h3 id="testimonial-name-2">Мария, 29 лет</h3>
-                  <p id="testimonial-text-2">
-                    Появилась система и спокойствие. Больше нет хаоса в еде, а результат держится.
-                  </p>
-                </article>
-
-                <article class="testimonial-slide">
-                  <img
-                    class="testimonial-avatar"
-                    src="https://randomuser.me/api/portraits/women/44.jpg"
-                    alt="Фото клиента Елены"
-                    id="testimonial-avatar-3"
-                    loading="lazy"
-                  />
-                  <h3 id="testimonial-name-3">Елена, 41 год</h3>
-                  <p id="testimonial-text-3">
-                    Наконец поняла, как питаться в реальном графике с детьми и работой. Без перегруза и запретов.
-                  </p>
-                </article>
-              </div>
-            </div>
-
-            <button
-              class="testimonial-arrow testimonial-next"
-              type="button"
-              id="testimonial-next"
-              aria-label="Следующий отзыв"
-            >
-              &#8594;
-            </button>
-          </div>
-
-          <div class="testimonial-dots" id="testimonial-dots" aria-label="Навигация по отзывам">
-            <button class="testimonial-dot is-active" type="button" data-index="0" aria-label="Отзыв 1"></button>
-            <button class="testimonial-dot" type="button" data-index="1" aria-label="Отзыв 2"></button>
-            <button class="testimonial-dot" type="button" data-index="2" aria-label="Отзыв 3"></button>
           </div>
         </div>
       </section>
@@ -418,7 +333,105 @@
         </div>
       </section>
 
-      <section class="section cta" aria-labelledby="cta-title">
+      <section class="section" id="results" aria-labelledby="results-title">
+        <div class="container">
+          <h2 id="results-title">Результаты</h2>
+          <p id="results-p1">
+            Для меня результат — это не только изменения в теле, но и ощущение ясности,
+            устойчивости и спокойствия в теме питания.
+          </p>
+
+          <blockquote class="quote">
+            <p id="quote-text">
+              Питание — это не сложно. Сложным его делает хаос.
+              Моя задача — помочь превратить хаос в понятную систему.
+            </p>
+          </blockquote>
+        </div>
+      </section>
+
+      <section class="section testimonials" id="testimonials" aria-labelledby="testimonials-title">
+        <div class="container">
+          <h2 id="testimonials-title">Отзывы</h2>
+          <p class="section-intro" id="testimonials-intro">
+            Реальные отклики о работе со мной: без крайностей, с понятным планом и устойчивым результатом.
+          </p>
+
+          <div class="card testimonials-card">
+            <button
+              class="testimonial-arrow testimonial-prev"
+              type="button"
+              id="testimonial-prev"
+              aria-label="Предыдущий отзыв"
+            >
+              &#8592;
+            </button>
+
+            <div class="testimonials-viewport" aria-live="polite">
+              <div class="testimonials-track" id="testimonials-track">
+                <article class="testimonial-slide">
+                  <img
+                    class="testimonial-avatar"
+                    src="https://randomuser.me/api/portraits/women/68.jpg"
+                    alt="Фото клиента Анны"
+                    id="testimonial-avatar-1"
+                    loading="lazy"
+                  />
+                  <h3 id="testimonial-name-1">Анна, 34 года</h3>
+                  <p id="testimonial-text-1">
+                    За 3 месяца ушли 8 кг без срывов. Самое ценное — я перестала жить от диеты до диеты.
+                  </p>
+                </article>
+
+                <article class="testimonial-slide">
+                  <img
+                    class="testimonial-avatar"
+                    src="https://randomuser.me/api/portraits/women/32.jpg"
+                    alt="Фото клиента Марии"
+                    id="testimonial-avatar-2"
+                    loading="lazy"
+                  />
+                  <h3 id="testimonial-name-2">Мария, 29 лет</h3>
+                  <p id="testimonial-text-2">
+                    Появилась система и спокойствие. Больше нет хаоса в еде, а результат держится.
+                  </p>
+                </article>
+
+                <article class="testimonial-slide">
+                  <img
+                    class="testimonial-avatar"
+                    src="https://randomuser.me/api/portraits/women/44.jpg"
+                    alt="Фото клиента Елены"
+                    id="testimonial-avatar-3"
+                    loading="lazy"
+                  />
+                  <h3 id="testimonial-name-3">Елена, 41 год</h3>
+                  <p id="testimonial-text-3">
+                    Наконец поняла, как питаться в реальном графике с детьми и работой. Без перегруза и запретов.
+                  </p>
+                </article>
+              </div>
+            </div>
+
+            <button
+              class="testimonial-arrow testimonial-next"
+              type="button"
+              id="testimonial-next"
+              aria-label="Следующий отзыв"
+            >
+              &#8594;
+            </button>
+          </div>
+
+          <div class="testimonial-dots" id="testimonial-dots" aria-label="Навигация по отзывам">
+            <button class="testimonial-dot is-active" type="button" data-index="0" aria-label="Отзыв 1"></button>
+            <button class="testimonial-dot" type="button" data-index="1" aria-label="Отзыв 2"></button>
+            <button class="testimonial-dot" type="button" data-index="2" aria-label="Отзыв 3"></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta" id="contact" aria-labelledby="cta-title">
         <div class="container cta-box">
           <h2 id="cta-title">Готовы навести порядок в питании?</h2>
           <p id="cta-p1">
@@ -450,6 +463,101 @@
       </section>
     </main>
 
+    <div
+      id="staggered-menu-root"
+      class="staggered-menu-wrapper fixed-wrapper"
+      data-position="right"
+      style="--sm-accent: #df8552"
+      aria-hidden="true"
+    >
+      <button
+        type="button"
+        class="sm-backdrop"
+        id="staggered-menu-backdrop"
+        aria-label="Закрыть меню"
+        tabindex="-1"
+      ></button>
+      <div class="sm-prelayers" aria-hidden="true">
+        <div class="sm-prelayer" style="background: #c4bac4"></div>
+        <div class="sm-prelayer" style="background: #9e98a8"></div>
+      </div>
+      <aside
+        id="staggered-menu-panel"
+        class="staggered-menu-panel"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Навигация по сайту"
+      >
+        <div class="sm-panel-inner">
+          <ul class="sm-panel-list" data-numbering="true" role="list">
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#top" aria-label="Перейти в начало" data-sm-anchor>
+                <span class="sm-panel-itemLabel" id="menu-label-home">Главная</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#about" aria-label="Раздел обо мне" data-sm-anchor>
+                <span class="sm-panel-itemLabel" id="menu-label-about">Обо мне</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#expertise" aria-label="Моя экспертность" data-sm-anchor>
+                <span class="sm-panel-itemLabel" id="menu-label-expertise">Экспертность</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#calculator" aria-label="Калькулятор КБЖУ" data-sm-anchor>
+                <span class="sm-panel-itemLabel" id="menu-label-calculator">Калькулятор</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#results" aria-label="Результаты" data-sm-anchor>
+                <span class="sm-panel-itemLabel" id="menu-label-results">Результаты</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#testimonials" aria-label="Отзывы" data-sm-anchor>
+                <span class="sm-panel-itemLabel" id="menu-label-testimonials">Отзывы</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#contact" aria-label="Связаться" data-sm-anchor>
+                <span class="sm-panel-itemLabel" id="menu-label-contact">Связаться</span>
+              </a>
+            </li>
+          </ul>
+          <div class="sm-socials" aria-label="Соцсети">
+            <h3 class="sm-socials-title" id="menu-socials-title">Соцсети</h3>
+            <ul class="sm-socials-list" role="list">
+              <li class="sm-socials-item">
+                <a
+                  href="https://t.me/nutritest_IH"
+                  class="sm-socials-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  id="menu-social-channel"
+                >
+                  Telegram — канал
+                </a>
+              </li>
+              <li class="sm-socials-item">
+                <a
+                  href="https://t.me/Neiro_ira11"
+                  class="sm-socials-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  id="menu-social-dm"
+                >
+                  Telegram — личные сообщения
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+
     <footer class="footer">
       <div class="container footer-inner">
         <p>© <span id="year"></span> Ирина Халил. <span id="footer-rights">Все права защищены.</span></p>
@@ -465,6 +573,7 @@
         </address>
       </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="script.js"></script>
     <script>
       (function () {
@@ -480,6 +589,22 @@
             heroConsult: "Личная консультация",
             heroChannel: "Telegram-канал",
             heroCalc: "Рассчитать КБЖУ",
+            menuToggleOpen: "Меню",
+            menuToggleClose: "Закрыть",
+            menuOpenAria: "Открыть меню навигации",
+            menuCloseAria: "Закрыть меню",
+            menuBackdropAria: "Закрыть меню",
+            menuPanelAria: "Навигация по сайту",
+            menuHome: "Главная",
+            menuAbout: "Обо мне",
+            menuExpertise: "Экспертность",
+            menuCalculator: "Калькулятор",
+            menuResults: "Результаты",
+            menuTestimonials: "Отзывы",
+            menuContact: "Связаться",
+            menuSocialsTitle: "Соцсети",
+            menuSocialChannel: "Telegram — канал",
+            menuSocialDm: "Telegram — личные сообщения",
             aboutTitle: "Обо мне",
             aboutP1:
               "Я — Ирина Халил. Моя история началась не с идеального рациона. Я прошла через ограничения, эксперименты с питанием и личный путь восстановления, прежде чем пришла к понятной и устойчивой системе.",
@@ -552,6 +677,22 @@
             heroConsult: "Personal Consultation",
             heroChannel: "Telegram Channel",
             heroCalc: "Calculate Calories & Macros",
+            menuToggleOpen: "Menu",
+            menuToggleClose: "Close",
+            menuOpenAria: "Open navigation menu",
+            menuCloseAria: "Close navigation menu",
+            menuBackdropAria: "Close menu",
+            menuPanelAria: "Site navigation",
+            menuHome: "Home",
+            menuAbout: "About",
+            menuExpertise: "Expertise",
+            menuCalculator: "Calculator",
+            menuResults: "Results",
+            menuTestimonials: "Testimonials",
+            menuContact: "Contact",
+            menuSocialsTitle: "Social",
+            menuSocialChannel: "Telegram — channel",
+            menuSocialDm: "Telegram — direct messages",
             aboutTitle: "About Me",
             aboutP1:
               "I am Irina Halil. My story did not start with a perfect diet. I went through restrictions, nutrition experiments, and a personal recovery path before creating a clear and sustainable system.",
@@ -679,6 +820,32 @@
           document.getElementById("cta-channel-btn").textContent = t.ctaChannel;
           document.getElementById("footer-rights").textContent = t.footerRights;
           document.getElementById("lang-toggle").textContent = t.langButton;
+
+          const menuLabel = document.getElementById("menu-toggle-label");
+          if (menuLabel) {
+            menuLabel.dataset.menuOpen = t.menuToggleOpen;
+            menuLabel.dataset.menuClose = t.menuToggleClose;
+          }
+          const menuToggle = document.getElementById("staggered-menu-toggle");
+          if (menuToggle) {
+            menuToggle.dataset.menuOpenAria = t.menuOpenAria;
+            menuToggle.dataset.menuCloseAria = t.menuCloseAria;
+          }
+          const menuBackdrop = document.getElementById("staggered-menu-backdrop");
+          if (menuBackdrop) menuBackdrop.setAttribute("aria-label", t.menuBackdropAria);
+          const menuPanel = document.getElementById("staggered-menu-panel");
+          if (menuPanel) menuPanel.setAttribute("aria-label", t.menuPanelAria);
+          document.getElementById("menu-label-home").textContent = t.menuHome;
+          document.getElementById("menu-label-about").textContent = t.menuAbout;
+          document.getElementById("menu-label-expertise").textContent = t.menuExpertise;
+          document.getElementById("menu-label-calculator").textContent = t.menuCalculator;
+          document.getElementById("menu-label-results").textContent = t.menuResults;
+          document.getElementById("menu-label-testimonials").textContent = t.menuTestimonials;
+          document.getElementById("menu-label-contact").textContent = t.menuContact;
+          document.getElementById("menu-socials-title").textContent = t.menuSocialsTitle;
+          document.getElementById("menu-social-channel").textContent = t.menuSocialChannel;
+          document.getElementById("menu-social-dm").textContent = t.menuSocialDm;
+          if (window.__nutrikeyMenuSync) window.__nutrikeyMenuSync();
 
           localStorage.setItem("siteLanguage", lang);
         };

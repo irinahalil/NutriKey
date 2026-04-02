@@ -172,10 +172,269 @@ const initTestimonialsCarousel = function () {
   render();
 };
 
+const initStaggeredMenu = function () {
+  const root = document.getElementById("staggered-menu-root");
+  const toggle = document.getElementById("staggered-menu-toggle");
+  const panel = document.getElementById("staggered-menu-panel");
+  const backdrop = document.getElementById("staggered-menu-backdrop");
+  const icon = document.getElementById("sm-menu-icon");
+  const label = document.getElementById("menu-toggle-label");
+  if (!root || !toggle || !panel || !backdrop) return;
+
+  const header = document.querySelector(".header");
+  const position = root.getAttribute("data-position") === "left" ? "left" : "right";
+  const offscreen = position === "left" ? -100 : 100;
+  const preLayers = Array.from(root.querySelectorAll(".sm-prelayer"));
+  const itemLabels = Array.from(panel.querySelectorAll(".sm-panel-itemLabel"));
+  const numberEls = Array.from(panel.querySelectorAll(".sm-panel-list[data-numbering] .sm-panel-item"));
+  const socialTitle = panel.querySelector(".sm-socials-title");
+  const socialLinks = Array.from(panel.querySelectorAll(".sm-socials-link"));
+  const hasGsap = typeof window.gsap !== "undefined";
+
+  let open = false;
+  let busy = false;
+  let openTl = null;
+  let closeTween = null;
+
+  if (!hasGsap) {
+    root.classList.add("sm-css-only");
+  }
+
+  const getMenuStrings = function () {
+    return {
+      open: label?.dataset.menuOpen || "Меню",
+      close: label?.dataset.menuClose || "Закрыть",
+    };
+  };
+
+  const syncLabel = function () {
+    const s = getMenuStrings();
+    if (label) label.textContent = open ? s.close : s.open;
+    const openAria = toggle.dataset.menuCloseAria || s.close;
+    const closedAria = toggle.dataset.menuOpenAria || s.open;
+    toggle.setAttribute("aria-label", open ? openAria : closedAria);
+  };
+
+  const setAria = function () {
+    root.setAttribute("aria-hidden", open ? "false" : "true");
+    panel.setAttribute("aria-hidden", open ? "false" : "true");
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    backdrop.setAttribute("tabindex", open ? "0" : "-1");
+    syncLabel();
+  };
+
+  if (hasGsap) {
+    gsap.set([panel].concat(preLayers), { xPercent: offscreen });
+    gsap.set(backdrop, { autoAlpha: 0, pointerEvents: "none" });
+    if (icon) gsap.set(icon, { rotate: 0, transformOrigin: "50% 50%" });
+    if (itemLabels.length) gsap.set(itemLabels, { yPercent: 140, rotate: 10 });
+    if (numberEls.length) gsap.set(numberEls, { "--sm-num-opacity": 0 });
+    if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
+    if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
+  }
+
+  const playOpen = function () {
+    if (busy || open) return;
+    busy = true;
+    open = true;
+    root.setAttribute("data-open", "true");
+    document.body.style.overflow = "hidden";
+    if (header) header.style.zIndex = "110";
+    setAria();
+
+    if (!hasGsap) {
+      busy = false;
+      if (icon) icon.style.transform = "rotate(225deg)";
+      return;
+    }
+
+    openTl?.kill();
+    closeTween?.kill();
+    closeTween = null;
+
+    const layerStates = preLayers.map(function (el) {
+      return { el: el, start: Number(gsap.getProperty(el, "xPercent")) };
+    });
+    const panelStart = Number(gsap.getProperty(panel, "xPercent"));
+
+    if (itemLabels.length) gsap.set(itemLabels, { yPercent: 140, rotate: 10 });
+    if (numberEls.length) gsap.set(numberEls, { "--sm-num-opacity": 0 });
+    if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
+    if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
+
+    gsap.killTweensOf(backdrop);
+    gsap.to(backdrop, {
+      autoAlpha: 1,
+      pointerEvents: "auto",
+      duration: 0.35,
+      ease: "power2.out",
+    });
+
+    const tl = gsap.timeline({
+      onComplete: function () {
+        busy = false;
+      },
+    });
+
+    layerStates.forEach(function (ls, i) {
+      tl.fromTo(
+        ls.el,
+        { xPercent: ls.start },
+        { xPercent: 0, duration: 0.5, ease: "power4.out" },
+        i * 0.07
+      );
+    });
+    const lastTime = layerStates.length ? (layerStates.length - 1) * 0.07 : 0;
+    const panelInsertTime = lastTime + (layerStates.length ? 0.08 : 0);
+    const panelDuration = 0.65;
+    tl.fromTo(
+      panel,
+      { xPercent: panelStart },
+      { xPercent: 0, duration: panelDuration, ease: "power4.out" },
+      panelInsertTime
+    );
+
+    if (itemLabels.length) {
+      const itemsStart = panelInsertTime + panelDuration * 0.15;
+      tl.to(
+        itemLabels,
+        {
+          yPercent: 0,
+          rotate: 0,
+          duration: 1,
+          ease: "power4.out",
+          stagger: { each: 0.1, from: "start" },
+        },
+        itemsStart
+      );
+      if (numberEls.length) {
+        tl.to(
+          numberEls,
+          {
+            duration: 0.6,
+            ease: "power2.out",
+            "--sm-num-opacity": 1,
+            stagger: { each: 0.08, from: "start" },
+          },
+          itemsStart + 0.1
+        );
+      }
+    }
+
+    if (socialTitle || socialLinks.length) {
+      const socialsStart = panelInsertTime + panelDuration * 0.4;
+      if (socialTitle) {
+        tl.to(socialTitle, { opacity: 1, duration: 0.5, ease: "power2.out" }, socialsStart);
+      }
+      if (socialLinks.length) {
+        tl.to(
+          socialLinks,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.55,
+            ease: "power3.out",
+            stagger: { each: 0.08, from: "start" },
+            onComplete: function () {
+              gsap.set(socialLinks, { clearProps: "opacity" });
+            },
+          },
+          socialsStart + 0.04
+        );
+      }
+    }
+
+    openTl = tl;
+
+    if (icon) {
+      gsap.to(icon, { rotate: 225, duration: 0.8, ease: "power4.out", overwrite: "auto" });
+    }
+  };
+
+  const playClose = function () {
+    if (!open) return;
+    if (hasGsap) {
+      openTl?.kill();
+      openTl = null;
+      busy = false;
+    }
+    busy = true;
+    open = false;
+    root.removeAttribute("data-open");
+    document.body.style.overflow = "";
+    if (header) header.style.zIndex = "";
+    setAria();
+
+    if (!hasGsap) {
+      if (icon) icon.style.transform = "rotate(0deg)";
+      busy = false;
+      return;
+    }
+
+    gsap.killTweensOf(backdrop);
+    gsap.to(backdrop, {
+      autoAlpha: 0,
+      pointerEvents: "none",
+      duration: 0.25,
+      ease: "power2.in",
+    });
+
+    const all = preLayers.concat([panel]);
+    closeTween?.kill();
+    closeTween = gsap.to(all, {
+      xPercent: offscreen,
+      duration: 0.32,
+      ease: "power3.in",
+      overwrite: "auto",
+      onComplete: function () {
+        if (itemLabels.length) gsap.set(itemLabels, { yPercent: 140, rotate: 10 });
+        if (numberEls.length) gsap.set(numberEls, { "--sm-num-opacity": 0 });
+        if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
+        if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
+        busy = false;
+      },
+    });
+
+    if (icon) {
+      gsap.to(icon, { rotate: 0, duration: 0.35, ease: "power3.inOut", overwrite: "auto" });
+    }
+  };
+
+  const toggleMenu = function () {
+    if (open) playClose();
+    else playOpen();
+  };
+
+  toggle.addEventListener("click", toggleMenu);
+  backdrop.addEventListener("click", function () {
+    if (open) playClose();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && open) playClose();
+  });
+
+  panel.querySelectorAll("a[data-sm-anchor]").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      const href = link.getAttribute("href");
+      if (!href || href.charAt(0) !== "#") return;
+      e.preventDefault();
+      playClose();
+      window.setTimeout(function () {
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+      }, hasGsap ? 340 : 50);
+    });
+  });
+
+  window.__nutrikeyMenuSync = syncLabel;
+};
+
 runRevealAnimations();
 runHeroIntroAnimation();
 pulseCalculatorOnJump();
 initTestimonialsCarousel();
+initStaggeredMenu();
 
 const calorieForm = document.getElementById("calorie-form");
 const calorieResult = document.getElementById("calorie-result");
