@@ -236,6 +236,87 @@
         </div>
       </section>
 
+      <section class="section testimonials" aria-labelledby="testimonials-title">
+        <div class="container">
+          <h2 id="testimonials-title">Отзывы</h2>
+          <p class="section-intro" id="testimonials-intro">
+            Реальные отклики о работе со мной: без крайностей, с понятным планом и устойчивым результатом.
+          </p>
+
+          <div class="card testimonials-card">
+            <button
+              class="testimonial-arrow testimonial-prev"
+              type="button"
+              id="testimonial-prev"
+              aria-label="Предыдущий отзыв"
+            >
+              &#8592;
+            </button>
+
+            <div class="testimonials-viewport" aria-live="polite">
+              <div class="testimonials-track" id="testimonials-track">
+                <article class="testimonial-slide">
+                  <img
+                    class="testimonial-avatar"
+                    src="https://randomuser.me/api/portraits/women/68.jpg"
+                    alt="Фото клиента Анны"
+                    id="testimonial-avatar-1"
+                    loading="lazy"
+                  />
+                  <h3 id="testimonial-name-1">Анна, 34 года</h3>
+                  <p id="testimonial-text-1">
+                    За 3 месяца ушли 8 кг без срывов. Самое ценное — я перестала жить от диеты до диеты.
+                  </p>
+                </article>
+
+                <article class="testimonial-slide">
+                  <img
+                    class="testimonial-avatar"
+                    src="https://randomuser.me/api/portraits/women/32.jpg"
+                    alt="Фото клиента Марии"
+                    id="testimonial-avatar-2"
+                    loading="lazy"
+                  />
+                  <h3 id="testimonial-name-2">Мария, 29 лет</h3>
+                  <p id="testimonial-text-2">
+                    Появилась система и спокойствие. Больше нет хаоса в еде, а результат держится.
+                  </p>
+                </article>
+
+                <article class="testimonial-slide">
+                  <img
+                    class="testimonial-avatar"
+                    src="https://randomuser.me/api/portraits/women/44.jpg"
+                    alt="Фото клиента Елены"
+                    id="testimonial-avatar-3"
+                    loading="lazy"
+                  />
+                  <h3 id="testimonial-name-3">Елена, 41 год</h3>
+                  <p id="testimonial-text-3">
+                    Наконец поняла, как питаться в реальном графике с детьми и работой. Без перегруза и запретов.
+                  </p>
+                </article>
+              </div>
+            </div>
+
+            <button
+              class="testimonial-arrow testimonial-next"
+              type="button"
+              id="testimonial-next"
+              aria-label="Следующий отзыв"
+            >
+              &#8594;
+            </button>
+          </div>
+
+          <div class="testimonial-dots" id="testimonial-dots" aria-label="Навигация по отзывам">
+            <button class="testimonial-dot is-active" type="button" data-index="0" aria-label="Отзыв 1"></button>
+            <button class="testimonial-dot" type="button" data-index="1" aria-label="Отзыв 2"></button>
+            <button class="testimonial-dot" type="button" data-index="2" aria-label="Отзыв 3"></button>
+          </div>
+        </div>
+      </section>
+
       <section class="section section-soft" id="calculator" aria-labelledby="calculator-title">
         <div class="container">
           <h2 id="calculator-title">Ориентировочный расчёт калорийности и БЖУ</h2>
@@ -441,6 +522,18 @@
               "Для меня результат — это не только изменения в теле, но и ощущение ясности, устойчивости и спокойствия в теме питания.",
             quoteText:
               "Питание — это не сложно. Сложным его делает хаос. Моя задача — помочь превратить хаос в понятную систему.",
+            testimonialsTitle: "Отзывы",
+            testimonialsIntro:
+              "Реальные отклики о работе со мной: без крайностей, с понятным планом и устойчивым результатом.",
+            testimonialName1: "Анна, 34 года",
+            testimonialText1:
+              "За 3 месяца ушли 8 кг без срывов. Самое ценное — я перестала жить от диеты до диеты.",
+            testimonialName2: "Мария, 29 лет",
+            testimonialText2:
+              "Появилась система и спокойствие. Больше нет хаоса в еде, а результат держится.",
+            testimonialName3: "Елена, 41 год",
+            testimonialText3:
+              "Наконец поняла, как питаться в реальном графике с детьми и работой. Без перегруза и запретов.",
             ctaTitle: "Готовы навести порядок в питании?",
             ctaP1:
               "Начнём с простых шагов, которые реально внедрить в ваш ритм жизни и удерживать без перегруза.",
@@ -501,6 +594,18 @@
               "For me, results are not only body changes, but also clarity, stability, and calm in nutrition.",
             quoteText:
               "Nutrition is not complicated. Chaos makes it complicated. My task is to turn chaos into a clear system.",
+            testimonialsTitle: "Testimonials",
+            testimonialsIntro:
+              "Real feedback about working with me: no extremes, a clear plan, and sustainable results.",
+            testimonialName1: "Anna, 34",
+            testimonialText1:
+              "I lost 8 kg in 3 months without breakdowns. The biggest value is that I stopped jumping between strict diets.",
+            testimonialName2: "Maria, 29",
+            testimonialText2:
+              "I got structure and calm. No more food chaos, and the result is stable.",
+            testimonialName3: "Elena, 41",
+            testimonialText3:
+              "I finally understood how to eat in a real schedule with kids and work. No overload and no hard bans.",
             ctaTitle: "Ready to bring order to your nutrition?",
             ctaP1:
               "Let's start with simple steps that are realistic for your lifestyle and sustainable without overload.",
@@ -560,6 +665,14 @@
           document.getElementById("results-title").textContent = t.resultsTitle;
           document.getElementById("results-p1").textContent = t.resultsP1;
           document.getElementById("quote-text").textContent = t.quoteText;
+          document.getElementById("testimonials-title").textContent = t.testimonialsTitle;
+          document.getElementById("testimonials-intro").textContent = t.testimonialsIntro;
+          document.getElementById("testimonial-name-1").textContent = t.testimonialName1;
+          document.getElementById("testimonial-text-1").textContent = t.testimonialText1;
+          document.getElementById("testimonial-name-2").textContent = t.testimonialName2;
+          document.getElementById("testimonial-text-2").textContent = t.testimonialText2;
+          document.getElementById("testimonial-name-3").textContent = t.testimonialName3;
+          document.getElementById("testimonial-text-3").textContent = t.testimonialText3;
           document.getElementById("cta-title").textContent = t.ctaTitle;
           document.getElementById("cta-p1").textContent = t.ctaP1;
           document.getElementById("cta-contact-btn").textContent = t.ctaContact;
