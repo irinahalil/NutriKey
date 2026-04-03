@@ -46,16 +46,14 @@
           <button class="btn btn-small btn-ghost" id="lang-toggle" type="button">
             EN
           </button>
-          <a
+          <button
             class="btn btn-small"
+            type="button"
             id="nav-telegram-btn"
-            href="https://t.me/Neiro_ira11"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Написать Ирине в Telegram"
+            aria-label="Написать мне — открыть форму"
           >
-            Написать в Telegram
-          </a>
+            Написать мне
+          </button>
           <button
             class="sm-nav-toggle"
             type="button"
@@ -440,15 +438,9 @@
           </p>
 
           <div class="hero-actions">
-            <a
-              class="btn"
-              id="cta-contact-btn"
-              href="https://t.me/Neiro_ira11"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <button class="btn" type="button" id="cta-contact-btn">
               Связаться со мной
-            </a>
+            </button>
             <a
               class="btn btn-ghost"
               id="cta-channel-btn"
@@ -462,6 +454,94 @@
         </div>
       </section>
     </main>
+
+    <div
+      id="contact-modal"
+      class="contact-modal"
+      aria-hidden="true"
+    >
+      <button
+        type="button"
+        class="contact-modal-backdrop"
+        id="contact-modal-backdrop"
+        aria-label="Закрыть"
+        tabindex="-1"
+      ></button>
+      <div
+        class="contact-modal-dialog card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-modal-title"
+      >
+        <button
+          type="button"
+          class="contact-modal-close"
+          id="contact-modal-close"
+          aria-label="Закрыть"
+        >
+          &times;
+        </button>
+        <h2 id="contact-modal-title">Написать мне</h2>
+        <p class="contact-modal-intro" id="contact-modal-intro">
+          Оставьте контакты — я свяжусь с вами удобным способом.
+        </p>
+        <form id="contact-form" class="contact-form" novalidate>
+          <div class="form-group">
+            <label for="contact-name" id="contact-label-name">Имя</label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              autocomplete="name"
+              required
+              maxlength="120"
+              placeholder="Как к вам обращаться"
+            />
+          </div>
+          <div class="form-group">
+            <label for="contact-email" id="contact-label-email">Электронная почта</label>
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              autocomplete="email"
+              required
+              maxlength="254"
+              placeholder="name@example.com"
+            />
+          </div>
+          <div class="form-group">
+            <label for="contact-phone" id="contact-label-phone">Телефон</label>
+            <input
+              type="tel"
+              id="contact-phone"
+              name="phone"
+              autocomplete="tel"
+              required
+              maxlength="32"
+              placeholder="+7 …"
+            />
+          </div>
+          <label class="contact-consent" for="contact-consent">
+            <input type="checkbox" id="contact-consent" name="consent" required value="1" />
+            <span id="contact-consent-text">Даю согласие на обработку моих персональных данных</span>
+          </label>
+          <p id="contact-form-error" class="contact-form-error" role="alert" hidden></p>
+          <div class="contact-form-actions">
+            <button type="submit" class="btn" id="contact-submit-btn">Отправить</button>
+          </div>
+          <p class="contact-modal-footnote">
+            <a
+              id="contact-telegram-fallback"
+              href="https://t.me/Neiro_ira11"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Или написать в Telegram</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
 
     <div
       id="staggered-menu-root"
@@ -574,14 +654,35 @@
       </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="script.js"></script>
     <script>
       (function () {
         const langToggle = document.getElementById("lang-toggle");
         const translations = {
           ru: {
             pageTitle: "Ирина Халил — нутрициолог | Питание без крайностей",
-            navTelegram: "Написать в Telegram",
+            navTelegram: "Написать мне",
+            contactModalIntro:
+              "Оставьте контакты — я свяжусь с вами удобным способом.",
+            contactLabelName: "Имя",
+            contactLabelEmail: "Электронная почта",
+            contactLabelPhone: "Телефон",
+            contactPlaceholderName: "Как к вам обращаться",
+            contactPlaceholderEmail: "name@example.com",
+            contactPlaceholderPhone: "+7 …",
+            contactConsentText: "Даю согласие на обработку моих персональных данных",
+            contactSubmit: "Отправить",
+            contactCloseAria: "Закрыть окно",
+            contactBackdropAria: "Закрыть форму",
+            contactAltTelegram: "Или написать в Telegram",
+            contactNavAria: "Написать мне — открыть форму",
+            contactErrRequired: "Заполните все поля.",
+            contactErrEmail: "Укажите корректный email.",
+            contactErrPhone: "Укажите номер телефона.",
+            contactErrConsent: "Нужно согласие на обработку персональных данных.",
+            contactMsgIntro: "Заявка с сайта NutriKey",
+            contactMsgName: "Имя",
+            contactMsgEmail: "Email",
+            contactMsgPhone: "Телефон",
             heroEyebrow: "Нутрициолог и проводник в понятное питание",
             heroTitle: "Питание без крайностей. Результат через систему и дисциплину.",
             heroLead:
@@ -669,7 +770,29 @@
           },
           en: {
             pageTitle: "Irina Halil — Nutritionist | Nutrition Without Extremes",
-            navTelegram: "Message on Telegram",
+            navTelegram: "Contact me",
+            contactModalIntro:
+              "Leave your contacts — I will get back to you in a convenient way.",
+            contactLabelName: "Name",
+            contactLabelEmail: "Email",
+            contactLabelPhone: "Phone",
+            contactPlaceholderName: "How should I address you",
+            contactPlaceholderEmail: "name@example.com",
+            contactPlaceholderPhone: "+1 …",
+            contactConsentText: "I consent to the processing of my personal data",
+            contactSubmit: "Send",
+            contactCloseAria: "Close dialog",
+            contactBackdropAria: "Close form",
+            contactAltTelegram: "Or message on Telegram",
+            contactNavAria: "Contact me — open form",
+            contactErrRequired: "Please fill in all fields.",
+            contactErrEmail: "Enter a valid email.",
+            contactErrPhone: "Enter a phone number.",
+            contactErrConsent: "Consent to data processing is required.",
+            contactMsgIntro: "Request from NutriKey website",
+            contactMsgName: "Name",
+            contactMsgEmail: "Email",
+            contactMsgPhone: "Phone",
             heroEyebrow: "Nutritionist and guide to clear nutrition",
             heroTitle: "Nutrition without extremes. Results through system and discipline.",
             heroLead:
@@ -763,7 +886,9 @@
 
           document.documentElement.lang = lang;
           document.title = t.pageTitle;
-          document.getElementById("nav-telegram-btn").textContent = t.navTelegram;
+          const navWriteBtn = document.getElementById("nav-telegram-btn");
+          navWriteBtn.textContent = t.navTelegram;
+          navWriteBtn.setAttribute("aria-label", t.contactNavAria);
           document.getElementById("hero-eyebrow").textContent = t.heroEyebrow;
           document.getElementById("hero-title").textContent = t.heroTitle;
           document.getElementById("hero-lead").textContent = t.heroLead;
@@ -847,6 +972,35 @@
           document.getElementById("menu-social-dm").textContent = t.menuSocialDm;
           if (window.__nutrikeyMenuSync) window.__nutrikeyMenuSync();
 
+          const cTitle = document.getElementById("contact-modal-title");
+          if (cTitle) cTitle.textContent = t.navTelegram;
+          const cIntro = document.getElementById("contact-modal-intro");
+          if (cIntro) cIntro.textContent = t.contactModalIntro;
+          document.getElementById("contact-label-name").textContent = t.contactLabelName;
+          document.getElementById("contact-label-email").textContent = t.contactLabelEmail;
+          document.getElementById("contact-label-phone").textContent = t.contactLabelPhone;
+          document.getElementById("contact-name").placeholder = t.contactPlaceholderName;
+          document.getElementById("contact-email").placeholder = t.contactPlaceholderEmail;
+          document.getElementById("contact-phone").placeholder = t.contactPlaceholderPhone;
+          document.getElementById("contact-consent-text").textContent = t.contactConsentText;
+          document.getElementById("contact-submit-btn").textContent = t.contactSubmit;
+          document.getElementById("contact-telegram-fallback").textContent = t.contactAltTelegram;
+          const cClose = document.getElementById("contact-modal-close");
+          if (cClose) cClose.setAttribute("aria-label", t.contactCloseAria);
+          const cBackdrop = document.getElementById("contact-modal-backdrop");
+          if (cBackdrop) cBackdrop.setAttribute("aria-label", t.contactBackdropAria);
+          const contactForm = document.getElementById("contact-form");
+          if (contactForm) {
+            contactForm.dataset.errRequired = t.contactErrRequired;
+            contactForm.dataset.errEmail = t.contactErrEmail;
+            contactForm.dataset.errPhone = t.contactErrPhone;
+            contactForm.dataset.errConsent = t.contactErrConsent;
+            contactForm.dataset.msgIntro = t.contactMsgIntro;
+            contactForm.dataset.msgName = t.contactMsgName;
+            contactForm.dataset.msgEmail = t.contactMsgEmail;
+            contactForm.dataset.msgPhone = t.contactMsgPhone;
+          }
+
           localStorage.setItem("siteLanguage", lang);
         };
 
@@ -860,5 +1014,6 @@
         });
       })();
     </script>
+    <script src="script.js"></script>
   </body>
   </html>

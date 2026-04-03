@@ -479,6 +479,9 @@ const initStaggeredMenu = function () {
   });
 
   window.__nutrikeyMenuSync = syncLabel;
+  window.__nutrikeyCloseMenu = function () {
+    if (open) playClose();
+  };
 };
 
 runRevealAnimations();
@@ -487,6 +490,141 @@ pulseCalculatorOnJump();
 initScrollSpy();
 initTestimonialsCarousel();
 initStaggeredMenu();
+
+const TELEGRAM_CONTACT_BASE = "https://t.me/Neiro_ira11";
+
+const initContactModal = function () {
+  const modal = document.getElementById("contact-modal");
+  const backdrop = document.getElementById("contact-modal-backdrop");
+  const closeBtn = document.getElementById("contact-modal-close");
+  const form = document.getElementById("contact-form");
+  const errEl = document.getElementById("contact-form-error");
+  const nameInput = document.getElementById("contact-name");
+  const emailInput = document.getElementById("contact-email");
+  const phoneInput = document.getElementById("contact-phone");
+  const consentInput = document.getElementById("contact-consent");
+
+  if (!modal || !form || !backdrop || !closeBtn) return;
+
+  let lastFocus = null;
+
+  const showError = function (message) {
+    if (!errEl) return;
+    errEl.textContent = message;
+    errEl.hidden = false;
+  };
+
+  const hideError = function () {
+    if (!errEl) return;
+    errEl.hidden = true;
+    errEl.textContent = "";
+  };
+
+  const validPhone = function (value) {
+    const digits = String(value).replace(/\D/g, "");
+    return digits.length >= 7 && digits.length <= 15;
+  };
+
+  const buildTelegramUrl = function () {
+    const intro = form.dataset.msgIntro || "NutriKey";
+    const ln = form.dataset.msgName || "Name";
+    const le = form.dataset.msgEmail || "Email";
+    const lp = form.dataset.msgPhone || "Phone";
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const text = `${intro}\n\n${ln}: ${name}\n${le}: ${email}\n${lp}: ${phone}`;
+    return `${TELEGRAM_CONTACT_BASE}?text=${encodeURIComponent(text)}`;
+  };
+
+  const closeModal = function () {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("contact-modal-open");
+    if (lastFocus && typeof lastFocus.focus === "function") {
+      lastFocus.focus();
+    }
+    lastFocus = null;
+  };
+
+  const openModal = function () {
+    hideError();
+    lastFocus = document.activeElement;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("contact-modal-open");
+    window.setTimeout(function () {
+      if (nameInput) nameInput.focus();
+    }, 10);
+  };
+
+  const onOpenClick = function (e) {
+    e.preventDefault();
+    if (window.__nutrikeyCloseMenu) window.__nutrikeyCloseMenu();
+    openModal();
+  };
+
+  document.getElementById("nav-telegram-btn")?.addEventListener("click", onOpenClick);
+  document.getElementById("cta-contact-btn")?.addEventListener("click", onOpenClick);
+
+  closeBtn.addEventListener("click", closeModal);
+  backdrop.addEventListener("click", closeModal);
+
+  form.addEventListener("input", hideError);
+  form.addEventListener("change", function (ev) {
+    if (ev.target === consentInput) hideError();
+  });
+
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && modal.classList.contains("is-open")) {
+      ev.preventDefault();
+      closeModal();
+    }
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    hideError();
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const phone = phoneInput.value.trim();
+
+    if (!name || !email || !phone) {
+      showError(form.dataset.errRequired || "");
+      return;
+    }
+
+    if (name.length < 2) {
+      showError(form.dataset.errRequired || "");
+      return;
+    }
+
+    if (!emailInput.checkValidity()) {
+      showError(form.dataset.errEmail || "");
+      emailInput.focus();
+      return;
+    }
+
+    if (!validPhone(phone)) {
+      showError(form.dataset.errPhone || "");
+      phoneInput.focus();
+      return;
+    }
+
+    if (!consentInput.checked) {
+      showError(form.dataset.errConsent || "");
+      consentInput.focus();
+      return;
+    }
+
+    window.open(buildTelegramUrl(), "_blank", "noopener,noreferrer");
+    form.reset();
+    closeModal();
+  });
+};
+
+initContactModal();
 
 const calorieForm = document.getElementById("calorie-form");
 const calorieResult = document.getElementById("calorie-result");
