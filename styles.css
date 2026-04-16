@@ -814,6 +814,20 @@ h2 {
   flex-wrap: wrap;
 }
 
+.footer-right {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.footer-contacts {
+  margin: 0;
+  font-style: italic;
+  text-align: right;
+}
+
 .footer a {
   color: var(--accent-dark);
   text-decoration: none;
@@ -821,6 +835,19 @@ h2 {
 
 .footer a:hover {
   text-decoration: underline;
+}
+
+.footer-legal {
+  margin: 0;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.contact-modal-legal {
+  margin-top: 8px;
 }
 
 @media (max-width: 900px) {
@@ -844,6 +871,17 @@ h2 {
 
   .testimonial-arrow {
     display: none;
+  }
+
+  .footer-right {
+    margin-left: 0;
+    align-items: flex-start;
+  }
+
+  .footer-contacts,
+  .footer-legal {
+    text-align: left;
+    justify-content: flex-start;
   }
 }
 
