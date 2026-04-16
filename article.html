@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Статья | NutriKey</title>
+    <meta name="description" content="Статья NutriKey" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .article-page {
+        padding: 28px 0 48px;
+      }
+      .article-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 12px;
+      }
+      .article-cover {
+        width: 100%;
+        max-height: 360px;
+        object-fit: cover;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        margin: 10px 0 14px;
+      }
+      .article-meta {
+        color: var(--muted);
+        margin: 0 0 12px;
+      }
+      .article-content {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 18px;
+      }
+      .article-content h2,
+      .article-content h3 {
+        margin-top: 18px;
+      }
+      .article-content p {
+        margin: 0 0 12px;
+      }
+      .article-content ul {
+        margin: 0 0 12px;
+      }
+    </style>
+  </head>
+  <body data-page="article">
+    <header class="header">
+      <div class="container nav">
+        <a href="index.html" class="logo">Ирина Халил</a>
+        <nav class="nav-actions" aria-label="Навигация">
+          <a class="btn btn-small" id="back-articles-link" href="articles.html">К статьям</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="article-page">
+      <div class="container">
+        <div class="article-top">
+          <h1 id="article-title">Статья</h1>
+        </div>
+        <p id="article-meta" class="article-meta"></p>
+        <img id="article-cover" class="article-cover" hidden alt="" />
+        <article id="article-content" class="article-content"></article>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cms-config.js"></script>
+    <script src="articles.js"></script>
+  </body>
+</html>

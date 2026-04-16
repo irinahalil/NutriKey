@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Админка статей | NutriKey</title>
+    <meta name="description" content="Панель управления статьями NutriKey" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .admin-page {
+        padding: 24px 0 46px;
+      }
+      body.admin-login-only .admin-page {
+        min-height: calc(100vh - 72px);
+        display: flex;
+        align-items: center;
+      }
+      .admin-grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 16px;
+      }
+      body.admin-login-only .admin-grid {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+      .admin-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 14px;
+      }
+      body.admin-login-only .admin-card-login {
+        width: min(420px, 96%);
+      }
+      .admin-card h2 {
+        margin-top: 0;
+      }
+      .admin-form label {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 4px;
+      }
+      .admin-form input,
+      .admin-form select,
+      .admin-form textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        padding: 10px;
+        font: inherit;
+      }
+      .admin-form textarea {
+        min-height: 130px;
+        resize: vertical;
+      }
+      .admin-actions {
+        margin-top: 12px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .admin-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 8px;
+      }
+      .admin-item {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+      .admin-item p {
+        margin: 0;
+      }
+      .admin-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .admin-note {
+        color: var(--muted);
+        margin: 8px 0 0;
+      }
+      .admin-status {
+        margin-top: 10px;
+        min-height: 20px;
+        color: var(--muted);
+      }
+      .admin-status.error {
+        color: #ff9a9a;
+      }
+      .admin-status.ok {
+        color: #b7f0c2;
+      }
+      .admin-hidden {
+        display: none !important;
+      }
+      @media (max-width: 980px) {
+        .admin-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container nav">
+        <a href="index.html" class="logo">Ирина Халил</a>
+        <nav class="nav-actions" aria-label="Навигация">
+          <a class="btn btn-small btn-ghost" href="articles.html">Статьи</a>
+          <a class="btn btn-small" href="index.html">На главную</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="admin-page">
+      <div class="container admin-grid">
+        <section class="admin-card admin-card-login">
+          <h2>Вход администратора</h2>
+          <form id="admin-login-form" class="admin-form">
+            <label for="admin-email">Email</label>
+            <input id="admin-email" type="email" required />
+            <label for="admin-password">Пароль</label>
+            <input id="admin-password" type="password" required />
+            <div class="admin-actions">
+              <button type="submit" class="btn btn-small">Войти</button>
+              <button id="admin-logout-btn" type="button" class="btn btn-small btn-ghost">
+                Выйти
+              </button>
+            </div>
+          </form>
+          <p class="admin-note">
+            Админ создается в Supabase: Authentication -> Users -> Invite user.
+          </p>
+          <p id="admin-status" class="admin-status"></p>
+        </section>
+
+        <section class="admin-card admin-hidden" id="admin-articles-section">
+          <h2>Статьи</h2>
+          <div class="admin-actions" style="margin-top:0;">
+            <button id="new-article-btn" type="button" class="btn btn-small btn-ghost">
+              Новая статья
+            </button>
+            <button id="reload-articles-btn" type="button" class="btn btn-small btn-ghost">
+              Обновить список
+            </button>
+          </div>
+          <ul id="admin-articles-list" class="admin-list" style="margin-top:10px;"></ul>
+        </section>
+      </div>
+
+      <div class="container admin-hidden" id="admin-editor-section" style="margin-top:16px;">
+        <section class="admin-card">
+          <h2 id="editor-title">Редактирование статьи</h2>
+          <form id="article-editor-form" class="admin-form">
+            <input id="article-id" type="hidden" />
+            <input id="article-slug" type="hidden" />
+            <div>
+              <label for="article-category">Категория</label>
+              <select id="article-category" required>
+                <option value="nutrition-base">Питание и база</option>
+                <option value="overeating-appetite">Переедание и аппетит</option>
+                <option value="nutrition-psychology">Психология питания</option>
+                <option value="personal-story">Личный опыт</option>
+                <option value="nutrition-money">Питание и деньги</option>
+                <option value="food-behavior">Еда и поведение</option>
+                <option value="childhood-food">Детство и питание</option>
+              </select>
+            </div>
+            <div class="admin-row">
+              <div>
+                <label for="article-title-ru">Заголовок</label>
+                <input id="article-title-ru" required />
+              </div>
+            </div>
+            <div class="admin-row">
+              <div>
+                <label for="article-excerpt-ru">Кратко</label>
+                <input id="article-excerpt-ru" />
+              </div>
+            </div>
+
+            <label for="article-content-ru">Контент (Markdown)</label>
+            <textarea id="article-content-ru" required></textarea>
+
+            <div class="admin-row">
+              <div>
+                <label for="article-image-file">Изображение с компьютера</label>
+                <input id="article-image-file" type="file" accept="image/*" />
+              </div>
+              <div>
+                <label for="article-image-url">URL изображения</label>
+                <input id="article-image-url" />
+              </div>
+            </div>
+
+            <div class="admin-actions">
+              <button type="submit" class="btn">Сохранить</button>
+              <button id="delete-article-btn" type="button" class="btn btn-ghost">Удалить</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cms-config.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

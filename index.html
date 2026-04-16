@@ -46,6 +46,7 @@
           <button class="btn btn-small btn-ghost" id="lang-toggle" type="button">
             EN
           </button>
+          <a class="btn btn-small btn-ghost" id="nav-admin-btn" href="admin.html">Вход</a>
           <button
             class="btn btn-small"
             type="button"
@@ -611,6 +612,16 @@
               </a>
             </li>
             <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="articles.html" aria-label="Статьи">
+                <span class="sm-panel-itemLabel" id="menu-label-articles">Статьи</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="admin.html" aria-label="Вход для администратора">
+                <span class="sm-panel-itemLabel" id="menu-label-admin">Вход</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
               <a class="sm-panel-item" href="#contact" aria-label="Связаться" data-sm-anchor>
                 <span class="sm-panel-itemLabel" id="menu-label-contact">Связаться</span>
               </a>
@@ -732,6 +743,8 @@
             menuCalculator: "Калькулятор",
             menuResults: "Результаты",
             menuTestimonials: "Отзывы",
+            menuArticles: "Статьи",
+            menuAdmin: "Вход",
             menuContact: "Связаться",
             menuSocialsTitle: "Соцсети",
             menuSocialChannel: "Telegram — канал",
@@ -852,6 +865,8 @@
             menuCalculator: "Calculator",
             menuResults: "Results",
             menuTestimonials: "Testimonials",
+            menuArticles: "Articles",
+            menuAdmin: "Admin",
             menuContact: "Contact",
             menuSocialsTitle: "Social",
             menuSocialChannel: "Telegram — channel",
@@ -928,6 +943,7 @@
 
           document.documentElement.lang = lang;
           document.title = t.pageTitle;
+          document.getElementById("nav-admin-btn").textContent = t.menuAdmin;
           const navWriteBtn = document.getElementById("nav-telegram-btn");
           navWriteBtn.textContent = t.navTelegram;
           navWriteBtn.setAttribute("aria-label", t.contactNavAria);
@@ -1008,6 +1024,8 @@
           document.getElementById("menu-label-calculator").textContent = t.menuCalculator;
           document.getElementById("menu-label-results").textContent = t.menuResults;
           document.getElementById("menu-label-testimonials").textContent = t.menuTestimonials;
+          document.getElementById("menu-label-articles").textContent = t.menuArticles;
+          document.getElementById("menu-label-admin").textContent = t.menuAdmin;
           document.getElementById("menu-label-contact").textContent = t.menuContact;
           document.getElementById("menu-socials-title").textContent = t.menuSocialsTitle;
           document.getElementById("menu-social-channel").textContent = t.menuSocialChannel;
