@@ -46,7 +46,6 @@
           <button class="btn btn-small btn-ghost" id="lang-toggle" type="button">
             EN
           </button>
-          <a class="btn btn-small btn-ghost" id="nav-admin-btn" href="admin.html">Вход</a>
           <button
             class="btn btn-small"
             type="button"
@@ -617,11 +616,6 @@
               </a>
             </li>
             <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="admin.html" aria-label="Вход для администратора">
-                <span class="sm-panel-itemLabel" id="menu-label-admin">Вход</span>
-              </a>
-            </li>
-            <li class="sm-panel-itemWrap">
               <a class="sm-panel-item" href="#contact" aria-label="Связаться" data-sm-anchor>
                 <span class="sm-panel-itemLabel" id="menu-label-contact">Связаться</span>
               </a>
@@ -682,6 +676,8 @@
             <a id="footer-offer-link" href="offer.html" target="_blank" rel="noopener noreferrer"
               >Публичная оферта</a
             >
+            <span aria-hidden="true">|</span>
+            <a id="footer-admin-link" href="admin.html">Админ</a>
           </p>
         </div>
       </div>
@@ -744,7 +740,6 @@
             menuResults: "Результаты",
             menuTestimonials: "Отзывы",
             menuArticles: "Статьи",
-            menuAdmin: "Вход",
             menuContact: "Связаться",
             menuSocialsTitle: "Соцсети",
             menuSocialChannel: "Telegram — канал",
@@ -811,6 +806,7 @@
             footerRights: "Все права защищены.",
             footerPolicy: "Политика конфиденциальности",
             footerOffer: "Публичная оферта",
+            footerAdmin: "Админ",
             langButton: "EN"
           },
           en: {
@@ -866,7 +862,6 @@
             menuResults: "Results",
             menuTestimonials: "Testimonials",
             menuArticles: "Articles",
-            menuAdmin: "Admin",
             menuContact: "Contact",
             menuSocialsTitle: "Social",
             menuSocialChannel: "Telegram — channel",
@@ -933,6 +928,7 @@
             footerRights: "All rights reserved.",
             footerPolicy: "Privacy Policy",
             footerOffer: "Public Offer",
+            footerAdmin: "Admin",
             langButton: "RU"
           }
         };
@@ -1025,7 +1021,6 @@
           document.getElementById("menu-label-results").textContent = t.menuResults;
           document.getElementById("menu-label-testimonials").textContent = t.menuTestimonials;
           document.getElementById("menu-label-articles").textContent = t.menuArticles;
-          document.getElementById("menu-label-admin").textContent = t.menuAdmin;
           document.getElementById("menu-label-contact").textContent = t.menuContact;
           document.getElementById("menu-socials-title").textContent = t.menuSocialsTitle;
           document.getElementById("menu-social-channel").textContent = t.menuSocialChannel;
@@ -1049,6 +1044,7 @@
           document.getElementById("contact-offer-link").textContent = t.offerLink;
           document.getElementById("footer-privacy-link").textContent = t.footerPolicy;
           document.getElementById("footer-offer-link").textContent = t.footerOffer;
+          document.getElementById("footer-admin-link").textContent = t.footerAdmin;
           const cClose = document.getElementById("contact-modal-close");
           if (cClose) cClose.setAttribute("aria-label", t.contactCloseAria);
           const cBackdrop = document.getElementById("contact-modal-backdrop");
