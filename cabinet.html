@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Личный кабинет | NutriKey</title>
+    <meta name="description" content="Личный кабинет пользователя NutriKey." />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .cabinet-page {
+        padding: 24px 0 44px;
+      }
+      .cabinet-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 18px;
+      }
+      .cabinet-card h1 {
+        margin: 0 0 8px;
+      }
+      .cabinet-sub {
+        margin: 0 0 12px;
+        color: var(--muted);
+      }
+      .cabinet-form label {
+        display: block;
+        margin: 10px 0 4px;
+      }
+      .cabinet-form input,
+      .cabinet-form select {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        padding: 10px;
+        font: inherit;
+      }
+      .cabinet-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .cabinet-actions {
+        margin-top: 14px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .cabinet-status {
+        margin-top: 10px;
+        min-height: 20px;
+        color: var(--muted);
+      }
+      .cabinet-status.error {
+        color: #ff9a9a;
+      }
+      .cabinet-status.ok {
+        color: #b7f0c2;
+      }
+      @media (max-width: 760px) {
+        .cabinet-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body data-auth-page="cabinet">
+    <header class="header">
+      <div class="container nav">
+        <a href="index.html" class="logo">Ирина Халил</a>
+        <nav class="nav-actions" aria-label="Навигация">
+          <button class="btn btn-small btn-ghost" id="cabinet-logout-btn" type="button">Выйти</button>
+          <a class="btn btn-small" href="index.html">На главную</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="cabinet-page">
+      <div class="container">
+        <section class="cabinet-card">
+          <h1>Личный кабинет</h1>
+          <p class="cabinet-sub">Заполните профиль — эти данные можно обновлять в любой момент.</p>
+          <form id="cabinet-form" class="cabinet-form">
+            <label for="profile-full-name">Имя</label>
+            <input id="profile-full-name" type="text" maxlength="120" />
+
+            <div class="cabinet-grid">
+              <div>
+                <label for="profile-age">Возраст</label>
+                <input id="profile-age" type="number" min="10" max="99" />
+              </div>
+              <div>
+                <label for="profile-height">Рост (см)</label>
+                <input id="profile-height" type="number" min="100" max="250" />
+              </div>
+            </div>
+
+            <div class="cabinet-grid">
+              <div>
+                <label for="profile-weight">Вес (кг)</label>
+                <input id="profile-weight" type="number" min="30" max="300" step="0.1" />
+              </div>
+              <div>
+                <label for="profile-goal">Цель</label>
+                <select id="profile-goal">
+                  <option value="">Выберите цель</option>
+                  <option value="loss">Снижение веса</option>
+                  <option value="maintain">Поддержание</option>
+                  <option value="gain">Набор массы</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="cabinet-actions">
+              <button type="submit" class="btn">Сохранить профиль</button>
+            </div>
+          </form>
+          <p id="cabinet-status" class="cabinet-status"></p>
+        </section>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cms-config.js"></script>
+    <script src="user-cabinet.js"></script>
+  </body>
+</html>

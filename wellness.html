@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Бот и дневник питания | NutriKey</title>
+    <meta name="description" content="Личный бот и дневник питания NutriKey." />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .wellness-page {
+        padding: 24px 0 44px;
+      }
+      .wellness-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .wellness-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 14px;
+      }
+      .wellness-card h2 {
+        margin: 0 0 10px;
+      }
+      .chat-log {
+        height: 340px;
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .msg {
+        max-width: 88%;
+        padding: 8px 10px;
+        border-radius: 12px;
+        margin-bottom: 8px;
+        white-space: pre-wrap;
+      }
+      .msg.user {
+        margin-left: auto;
+        background: rgba(240, 160, 114, 0.25);
+      }
+      .msg.assistant {
+        margin-right: auto;
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .wellness-card textarea,
+      .wellness-card input[type="text"] {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        padding: 10px;
+        font: inherit;
+      }
+      .wellness-card textarea {
+        min-height: 90px;
+        resize: vertical;
+      }
+      .wellness-actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .status {
+        color: var(--muted);
+        min-height: 20px;
+        margin-top: 8px;
+      }
+      .status.error {
+        color: #ff9a9a;
+      }
+      .status.ok {
+        color: #b7f0c2;
+      }
+      .diary-feed {
+        margin-top: 10px;
+        display: grid;
+        gap: 10px;
+      }
+      .diary-item {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .diary-item img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-top: 8px;
+      }
+      .diary-meta {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      @media (max-width: 980px) {
+        .wellness-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body data-auth-page="wellness">
+    <header class="header">
+      <div class="container nav">
+        <a href="index.html" class="logo">Ирина Халил</a>
+        <nav class="nav-actions" aria-label="Навигация">
+          <a class="btn btn-small btn-ghost" href="cabinet.html?edit=1">Изменить настройки</a>
+          <button class="btn btn-small" id="wellness-logout-btn" type="button">Выйти</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wellness-page">
+      <div class="container">
+        <div class="wellness-grid">
+          <section class="wellness-card">
+            <h2>Бот-консультант</h2>
+            <div id="chat-log" class="chat-log"></div>
+            <textarea id="chat-input" placeholder="Напишите вопрос по питанию и БЖУ..."></textarea>
+            <div class="wellness-actions">
+              <button id="send-chat-btn" class="btn" type="button">Отправить</button>
+            </div>
+            <p id="chat-status" class="status"></p>
+          </section>
+
+          <section class="wellness-card">
+            <h2>Дневник питания</h2>
+            <input id="diary-note" type="text" placeholder="Короткое описание: что ели, как себя чувствуете" />
+            <div class="wellness-actions">
+              <input id="diary-photo" type="file" accept="image/*" />
+              <button id="save-diary-btn" class="btn" type="button">Сохранить запись</button>
+            </div>
+            <p id="diary-status" class="status"></p>
+            <div id="diary-feed" class="diary-feed"></div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cms-config.js"></script>
+    <script src="wellness.js"></script>
+  </body>
+</html>

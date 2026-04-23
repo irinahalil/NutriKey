@@ -8,4 +8,11 @@ window.NUTRI_CMS = {
 
   // Bucket в Storage для изображений
   imagesBucket: "article-images",
+
+  // Дневник питания
+  diaryTable: "food_diary_entries",
+  diaryBucket: "food-diary",
+
+  // Чат в личном кабинете
+  chatTable: "cabinet_chat_messages",
 };

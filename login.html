@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Вход в кабинет | NutriKey</title>
+    <meta name="description" content="Вход и регистрация в личный кабинет NutriKey." />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .auth-page {
+        min-height: calc(100vh - 72px);
+        display: flex;
+        align-items: center;
+        padding: 24px 0 40px;
+      }
+      .auth-card {
+        width: min(520px, 100%);
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 20px;
+      }
+      .auth-card h1 {
+        margin: 0 0 12px;
+      }
+      .auth-form label {
+        display: block;
+        margin: 10px 0 4px;
+      }
+      .auth-form input {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        padding: 10px;
+        font: inherit;
+      }
+      .auth-actions {
+        margin-top: 14px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .auth-note {
+        color: var(--muted);
+        margin: 8px 0 0;
+      }
+      .auth-status {
+        margin-top: 10px;
+        min-height: 20px;
+        color: var(--muted);
+      }
+      .auth-status.error {
+        color: #ff9a9a;
+      }
+      .auth-status.ok {
+        color: #b7f0c2;
+      }
+    </style>
+  </head>
+  <body data-auth-page="login">
+    <header class="header">
+      <div class="container nav">
+        <a href="index.html" class="logo">Ирина Халил</a>
+        <nav class="nav-actions" aria-label="Навигация">
+          <a class="btn btn-small" href="index.html">На главную</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="auth-page">
+      <div class="container">
+        <section class="auth-card">
+          <h1>Личный кабинет</h1>
+          <p class="auth-note">
+            Если вы впервые, создайте аккаунт (логин + пароль). Если уже есть доступ — войдите.
+          </p>
+          <form id="auth-form" class="auth-form">
+            <label for="auth-email">Логин (email)</label>
+            <input id="auth-email" type="email" placeholder="your@mail.com" required />
+            <label for="auth-password">Пароль</label>
+            <input id="auth-password" type="password" minlength="6" placeholder="Минимум 6 символов" required />
+            <div class="auth-actions">
+              <button type="submit" class="btn">Войти</button>
+              <button id="register-btn" type="button" class="btn btn-ghost">Создать аккаунт</button>
+            </div>
+          </form>
+          <p id="auth-status" class="auth-status"></p>
+        </section>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cms-config.js"></script>
+    <script src="user-cabinet.js"></script>
+  </body>
+</html>

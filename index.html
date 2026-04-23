@@ -46,6 +46,7 @@
           <button class="btn btn-small btn-ghost" id="lang-toggle" type="button">
             EN
           </button>
+          <a class="btn btn-small btn-ghost" id="nav-cabinet-btn" href="login.html">Личный кабинет</a>
           <button
             class="btn btn-small"
             type="button"
@@ -616,6 +617,11 @@
               </a>
             </li>
             <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="login.html" aria-label="Личный кабинет">
+                <span class="sm-panel-itemLabel" id="menu-label-cabinet">Личный кабинет</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
               <a class="sm-panel-item" href="#contact" aria-label="Связаться" data-sm-anchor>
                 <span class="sm-panel-itemLabel" id="menu-label-contact">Связаться</span>
               </a>
@@ -740,6 +746,7 @@
             menuResults: "Результаты",
             menuTestimonials: "Отзывы",
             menuArticles: "Статьи",
+            menuCabinet: "Личный кабинет",
             menuContact: "Связаться",
             menuSocialsTitle: "Соцсети",
             menuSocialChannel: "Telegram — канал",
@@ -862,6 +869,7 @@
             menuResults: "Results",
             menuTestimonials: "Testimonials",
             menuArticles: "Articles",
+            menuCabinet: "Cabinet",
             menuContact: "Contact",
             menuSocialsTitle: "Social",
             menuSocialChannel: "Telegram — channel",
@@ -999,6 +1007,7 @@
           document.getElementById("cta-channel-btn").textContent = t.ctaChannel;
           document.getElementById("footer-rights").textContent = t.footerRights;
           document.getElementById("lang-toggle").textContent = t.langButton;
+          document.getElementById("nav-cabinet-btn").textContent = t.menuCabinet;
 
           const menuLabel = document.getElementById("menu-toggle-label");
           if (menuLabel) {
@@ -1021,6 +1030,7 @@
           document.getElementById("menu-label-results").textContent = t.menuResults;
           document.getElementById("menu-label-testimonials").textContent = t.menuTestimonials;
           document.getElementById("menu-label-articles").textContent = t.menuArticles;
+          document.getElementById("menu-label-cabinet").textContent = t.menuCabinet;
           document.getElementById("menu-label-contact").textContent = t.menuContact;
           document.getElementById("menu-socials-title").textContent = t.menuSocialsTitle;
           document.getElementById("menu-social-channel").textContent = t.menuSocialChannel;
