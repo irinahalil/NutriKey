@@ -48,14 +48,6 @@
           </button>
           <a class="btn btn-small btn-ghost" id="nav-cabinet-btn" href="login.html">Личный кабинет</a>
           <button
-            class="btn btn-small"
-            type="button"
-            id="nav-telegram-btn"
-            aria-label="Написать мне — открыть форму"
-          >
-            Написать мне
-          </button>
-          <button
             class="sm-nav-toggle"
             type="button"
             id="staggered-menu-toggle"
@@ -582,33 +574,8 @@
         <div class="sm-panel-inner">
           <ul class="sm-panel-list" data-numbering="true" role="list">
             <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#top" aria-label="Перейти в начало" data-sm-anchor>
-                <span class="sm-panel-itemLabel" id="menu-label-home">Главная</span>
-              </a>
-            </li>
-            <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#about" aria-label="Раздел обо мне" data-sm-anchor>
-                <span class="sm-panel-itemLabel" id="menu-label-about">Обо мне</span>
-              </a>
-            </li>
-            <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#expertise" aria-label="Моя экспертность" data-sm-anchor>
-                <span class="sm-panel-itemLabel" id="menu-label-expertise">Экспертность</span>
-              </a>
-            </li>
-            <li class="sm-panel-itemWrap">
               <a class="sm-panel-item" href="#calculator" aria-label="Калькулятор КБЖУ" data-sm-anchor>
                 <span class="sm-panel-itemLabel" id="menu-label-calculator">Калькулятор</span>
-              </a>
-            </li>
-            <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#results" aria-label="Результаты" data-sm-anchor>
-                <span class="sm-panel-itemLabel" id="menu-label-results">Результаты</span>
-              </a>
-            </li>
-            <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#testimonials" aria-label="Отзывы" data-sm-anchor>
-                <span class="sm-panel-itemLabel" id="menu-label-testimonials">Отзывы</span>
               </a>
             </li>
             <li class="sm-panel-itemWrap">
@@ -619,11 +586,6 @@
             <li class="sm-panel-itemWrap">
               <a class="sm-panel-item" href="login.html" aria-label="Личный кабинет">
                 <span class="sm-panel-itemLabel" id="menu-label-cabinet">Личный кабинет</span>
-              </a>
-            </li>
-            <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#contact" aria-label="Связаться" data-sm-anchor>
-                <span class="sm-panel-itemLabel" id="menu-label-contact">Связаться</span>
               </a>
             </li>
           </ul>
@@ -949,8 +911,10 @@
           document.title = t.pageTitle;
           document.getElementById("nav-admin-btn").textContent = t.menuAdmin;
           const navWriteBtn = document.getElementById("nav-telegram-btn");
-          navWriteBtn.textContent = t.navTelegram;
-          navWriteBtn.setAttribute("aria-label", t.contactNavAria);
+          if (navWriteBtn) {
+            navWriteBtn.textContent = t.navTelegram;
+            navWriteBtn.setAttribute("aria-label", t.contactNavAria);
+          }
           document.getElementById("hero-eyebrow").textContent = t.heroEyebrow;
           document.getElementById("hero-title").textContent = t.heroTitle;
           document.getElementById("hero-lead").textContent = t.heroLead;
@@ -1023,15 +987,9 @@
           if (menuBackdrop) menuBackdrop.setAttribute("aria-label", t.menuBackdropAria);
           const menuPanel = document.getElementById("staggered-menu-panel");
           if (menuPanel) menuPanel.setAttribute("aria-label", t.menuPanelAria);
-          document.getElementById("menu-label-home").textContent = t.menuHome;
-          document.getElementById("menu-label-about").textContent = t.menuAbout;
-          document.getElementById("menu-label-expertise").textContent = t.menuExpertise;
           document.getElementById("menu-label-calculator").textContent = t.menuCalculator;
-          document.getElementById("menu-label-results").textContent = t.menuResults;
-          document.getElementById("menu-label-testimonials").textContent = t.menuTestimonials;
           document.getElementById("menu-label-articles").textContent = t.menuArticles;
           document.getElementById("menu-label-cabinet").textContent = t.menuCabinet;
-          document.getElementById("menu-label-contact").textContent = t.menuContact;
           document.getElementById("menu-socials-title").textContent = t.menuSocialsTitle;
           document.getElementById("menu-social-channel").textContent = t.menuSocialChannel;
           document.getElementById("menu-social-dm").textContent = t.menuSocialDm;
