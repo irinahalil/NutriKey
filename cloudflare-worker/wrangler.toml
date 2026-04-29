@@ -1,0 +1,11 @@
+name = "nutrikey-leads"
+main = "worker.js"
+compatibility_date = "2026-04-29"
+
+[vars]
+# Можно оставить пустым
+APP_NAME = "NutriKey"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "c97afdfbaae94743ac1a00becc67f543"

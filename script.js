@@ -492,32 +492,9 @@ initTestimonialsCarousel();
 initStaggeredMenu();
 
 const TELEGRAM_CONTACT_BASE = "https://t.me/Neiro_ira11";
-
-/**
- * Заявки в «таблицу как Excel» через Google Таблицы (бесплатно, файл можно скачать .xlsx):
- * 1) Создайте Google Форму с тремя полями: Имя, Email, Телефон (короткий ответ).
- * 2) Вкладка «Ответы» → значок таблицы → «Создать таблицу» — ответы будут строками.
- * 3) Узнайте ID полей: в редакторе формы «⋮» → «Получить ссылку для предварительного заполнения»,
- *    введите тестовые значения → «Получить ссылку». В URL появятся параметры entry.ЧИСЛО.
- * 4) actionUrl: из адреса формы возьмите часть …/forms/d/e/ВАШ_ID/… и подставьте:
- *    https://docs.google.com/forms/d/e/ВАШ_ID/formResponse
- * 5) Впишите три ключа entry.… ниже. Пока actionUrl пустой — работает только Telegram.
- */
-const GOOGLE_FORM_FOR_SHEET = {
-  actionUrl:
-    "https://docs.google.com/forms/d/e/1FAIpQLSeNqATeSgY6lJd5q86WEbyrkA4I2_m8kVoPGnZAgB1nlTMbKA/formResponse",
-  entries: {
-    name: "entry.1108070100",
-    email: "entry.1512504502",
-    phone: "entry.1304197235",
-  },
-};
-
-const isGoogleSheetFormReady = function () {
-  const c = GOOGLE_FORM_FOR_SHEET;
-  const e = c.entries;
-  return !!(c.actionUrl && e.name && e.email && e.phone);
-};
+// URL вашего Cloudflare Worker endpoint, который шлет заявки в Telegram.
+// Пример: https://nutrikey-leads.<subdomain>.workers.dev
+const CONTACT_API_ENDPOINT = "https://nutrikey-leads.nutrikey-ira.workers.dev";
 
 const initContactModal = function () {
   const modal = document.getElementById("contact-modal");
@@ -676,58 +653,37 @@ const initContactModal = function () {
       closeModal();
     };
 
-    if (isGoogleSheetFormReady()) {
+    if (CONTACT_API_ENDPOINT) {
       setSubmitLoading(true);
-
-      const submitGoogleFormViaIframe = function () {
-        const actionUrl = GOOGLE_FORM_FOR_SHEET.actionUrl;
-        const entries = GOOGLE_FORM_FOR_SHEET.entries;
-        const iframeName = "nutrikey-gform-" + String(Date.now());
-        const iframe = document.createElement("iframe");
-        iframe.setAttribute("name", iframeName);
-        iframe.setAttribute("title", "Form response");
-        iframe.style.cssText =
-          "position:absolute;width:0;height:0;border:0;clip:rect(0,0,0,0);overflow:hidden";
-        document.body.appendChild(iframe);
-
-        const ghost = document.createElement("form");
-        ghost.setAttribute("method", "POST");
-        ghost.setAttribute("action", actionUrl);
-        ghost.setAttribute("target", iframeName);
-        ghost.setAttribute("accept-charset", "UTF-8");
-        ghost.style.cssText = "position:absolute;left:-9999px";
-
-        const hidden = function (fieldName, value) {
-          const inp = document.createElement("input");
-          inp.type = "hidden";
-          inp.name = fieldName;
-          inp.value = value;
-          ghost.appendChild(inp);
-        };
-
-        hidden("fvv", "1");
-        hidden("pageHistory", "0");
-        hidden(entries.name, name);
-        hidden(entries.email, email);
-        hidden(entries.phone, phone);
-
-        document.body.appendChild(ghost);
-
-        let loadCount = 0;
-        let done = false;
-        let failTimer = null;
-        let backupTimer = null;
-
-        const cleanupDom = function () {
-          try {
-            ghost.remove();
-          } catch (e) {}
-          try {
-            iframe.remove();
-          } catch (e2) {}
-        };
-
-        const onSuccessUi = function () {
+      fetch(CONTACT_API_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: phone,
+          source: "NutriKey contact form",
+        }),
+      })
+        .then(function (res) {
+          if (!res.ok) {
+            return res
+              .json()
+              .catch(function () {
+                return {};
+              })
+              .then(function (payload) {
+                if (res.status === 429) {
+                  const retry = Number(payload.retry_after_seconds || 0);
+                  const msg =
+                    retry > 0
+                      ? `Слишком частые отправки. Повторите через ${retry} сек.`
+                      : "Слишком частые отправки. Попробуйте чуть позже.";
+                  throw new Error(msg);
+                }
+                throw new Error(payload.error || "Не удалось отправить заявку.");
+              });
+          }
           form.reset();
           showSuccessMsg(form.dataset.contactSuccess || "");
           setSubmitLoading(false);
@@ -735,46 +691,11 @@ const initContactModal = function () {
             hideError();
             closeModal();
           }, 1400);
-        };
-
-        const finishOk = function () {
-          if (done) return;
-          done = true;
-          window.clearTimeout(failTimer);
-          window.clearTimeout(backupTimer);
-          iframe.removeEventListener("load", onLoad);
-          cleanupDom();
-          onSuccessUi();
-        };
-
-        const finishErr = function () {
-          if (done) return;
-          done = true;
-          window.clearTimeout(failTimer);
-          window.clearTimeout(backupTimer);
-          iframe.removeEventListener("load", onLoad);
-          cleanupDom();
-          showError(form.dataset.contactErrSend || "");
+        })
+        .catch(function (err) {
           setSubmitLoading(false);
-        };
-
-        const onLoad = function () {
-          loadCount += 1;
-          if (loadCount >= 2) finishOk();
-        };
-
-        iframe.addEventListener("load", onLoad);
-
-        failTimer = window.setTimeout(finishErr, 15000);
-        backupTimer = window.setTimeout(function () {
-          if (done) return;
-          if (loadCount >= 1) finishOk();
-        }, 3500);
-
-        ghost.submit();
-      };
-
-      submitGoogleFormViaIframe();
+          showError(err?.message || "Не удалось отправить заявку. Попробуйте позже.");
+        });
       return;
     }
 
