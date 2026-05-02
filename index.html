@@ -392,6 +392,62 @@
                     Наконец поняла, как питаться в реальном графике с детьми и работой. Без перегруза и запретов.
                   </p>
                 </article>
+
+                <article class="testimonial-slide">
+                  <img
+                    class="testimonial-avatar"
+                    src="https://randomuser.me/api/portraits/women/23.jpg"
+                    alt="Фото клиента Виктории"
+                    id="testimonial-avatar-4"
+                    loading="lazy"
+                  />
+                  <h3 id="testimonial-name-4">Виктория, 37 лет</h3>
+                  <p id="testimonial-text-4">
+                    Перестала заедать стресс по вечерам. Появились понятные шаги, и вес начал снижаться без жёстких ограничений.
+                  </p>
+                </article>
+
+                <article class="testimonial-slide">
+                  <img
+                    class="testimonial-avatar"
+                    src="https://randomuser.me/api/portraits/women/51.jpg"
+                    alt="Фото клиента Ольги"
+                    id="testimonial-avatar-5"
+                    loading="lazy"
+                  />
+                  <h3 id="testimonial-name-5">Ольга, 32 года</h3>
+                  <p id="testimonial-text-5">
+                    Наладила питание в офисном графике. Ушла постоянная усталость, а рацион стал простым и предсказуемым.
+                  </p>
+                </article>
+
+                <article class="testimonial-slide">
+                  <img
+                    class="testimonial-avatar"
+                    src="https://randomuser.me/api/portraits/women/57.jpg"
+                    alt="Фото клиента Светланы"
+                    id="testimonial-avatar-6"
+                    loading="lazy"
+                  />
+                  <h3 id="testimonial-name-6">Светлана, 45 лет</h3>
+                  <p id="testimonial-text-6">
+                    Поняла, как собирать тарелку без подсчётов каждый час. Еда перестала быть источником тревоги и вины.
+                  </p>
+                </article>
+
+                <article class="testimonial-slide">
+                  <img
+                    class="testimonial-avatar"
+                    src="https://randomuser.me/api/portraits/women/63.jpg"
+                    alt="Фото клиента Натальи"
+                    id="testimonial-avatar-7"
+                    loading="lazy"
+                  />
+                  <h3 id="testimonial-name-7">Наталья, 39 лет</h3>
+                  <p id="testimonial-text-7">
+                    За 2 месяца ушёл хаос в питании и минус 5 кг без срывов. Впервые получилось держать результат спокойно.
+                  </p>
+                </article>
               </div>
             </div>
 
@@ -409,6 +465,10 @@
             <button class="testimonial-dot is-active" type="button" data-index="0" aria-label="Отзыв 1"></button>
             <button class="testimonial-dot" type="button" data-index="1" aria-label="Отзыв 2"></button>
             <button class="testimonial-dot" type="button" data-index="2" aria-label="Отзыв 3"></button>
+            <button class="testimonial-dot" type="button" data-index="3" aria-label="Отзыв 4"></button>
+            <button class="testimonial-dot" type="button" data-index="4" aria-label="Отзыв 5"></button>
+            <button class="testimonial-dot" type="button" data-index="5" aria-label="Отзыв 6"></button>
+            <button class="testimonial-dot" type="button" data-index="6" aria-label="Отзыв 7"></button>
           </div>
         </div>
       </section>
@@ -757,6 +817,18 @@
             testimonialName3: "Елена, 41 год",
             testimonialText3:
               "Наконец поняла, как питаться в реальном графике с детьми и работой. Без перегруза и запретов.",
+            testimonialName4: "Виктория, 37 лет",
+            testimonialText4:
+              "Перестала заедать стресс по вечерам. Появились понятные шаги, и вес начал снижаться без жёстких ограничений.",
+            testimonialName5: "Ольга, 32 года",
+            testimonialText5:
+              "Наладила питание в офисном графике. Ушла постоянная усталость, а рацион стал простым и предсказуемым.",
+            testimonialName6: "Светлана, 45 лет",
+            testimonialText6:
+              "Поняла, как собирать тарелку без подсчётов каждый час. Еда перестала быть источником тревоги и вины.",
+            testimonialName7: "Наталья, 39 лет",
+            testimonialText7:
+              "За 2 месяца ушёл хаос в питании и минус 5 кг без срывов. Впервые получилось держать результат спокойно.",
             ctaTitle: "Готовы навести порядок в питании?",
             ctaP1:
               "Начнём с простых шагов, которые реально внедрить в ваш ритм жизни и удерживать без перегруза.",
@@ -879,6 +951,18 @@
             testimonialName3: "Elena, 41",
             testimonialText3:
               "I finally understood how to eat in a real schedule with kids and work. No overload and no hard bans.",
+            testimonialName4: "Victoria, 37",
+            testimonialText4:
+              "I stopped stress-eating in the evenings. I got clear steps, and my weight started going down without harsh restrictions.",
+            testimonialName5: "Olga, 32",
+            testimonialText5:
+              "I organized my meals around an office schedule. Constant fatigue disappeared, and my diet became simple and predictable.",
+            testimonialName6: "Svetlana, 45",
+            testimonialText6:
+              "I learned how to build balanced meals without counting all day. Food is no longer a source of anxiety and guilt.",
+            testimonialName7: "Natalia, 39",
+            testimonialText7:
+              "In 2 months I removed food chaos and lost 5 kg without breakdowns. For the first time I can keep results calmly.",
             ctaTitle: "Ready to bring order to your nutrition?",
             ctaP1:
               "Let's start with simple steps that are realistic for your lifestyle and sustainable without overload.",
@@ -953,6 +1037,14 @@
           document.getElementById("testimonial-text-2").textContent = t.testimonialText2;
           document.getElementById("testimonial-name-3").textContent = t.testimonialName3;
           document.getElementById("testimonial-text-3").textContent = t.testimonialText3;
+          document.getElementById("testimonial-name-4").textContent = t.testimonialName4;
+          document.getElementById("testimonial-text-4").textContent = t.testimonialText4;
+          document.getElementById("testimonial-name-5").textContent = t.testimonialName5;
+          document.getElementById("testimonial-text-5").textContent = t.testimonialText5;
+          document.getElementById("testimonial-name-6").textContent = t.testimonialName6;
+          document.getElementById("testimonial-text-6").textContent = t.testimonialText6;
+          document.getElementById("testimonial-name-7").textContent = t.testimonialName7;
+          document.getElementById("testimonial-text-7").textContent = t.testimonialText7;
           document.getElementById("cta-title").textContent = t.ctaTitle;
           document.getElementById("cta-p1").textContent = t.ctaP1;
           document.getElementById("cta-contact-btn").textContent = t.ctaContact;
