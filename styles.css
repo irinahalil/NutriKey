@@ -427,8 +427,10 @@ main#main-content > section.section.section-is-active {
 
 .eyebrow {
   margin: 0 0 14px;
-  color: var(--accent-dark);
+  color: #c98f73;
   font-weight: 700;
+  font-size: clamp(1.02rem, 1.7vw, 1.14rem);
+  letter-spacing: 0.01em;
 }
 
 h1,
