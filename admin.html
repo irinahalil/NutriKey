@@ -20,6 +20,9 @@
         grid-template-columns: 320px 1fr;
         gap: 16px;
       }
+      body.admin-authorized .admin-grid {
+        grid-template-columns: 1fr;
+      }
       body.admin-login-only .admin-grid {
         grid-template-columns: 1fr;
         justify-items: center;
@@ -104,6 +107,28 @@
       .admin-hidden {
         display: none !important;
       }
+      .article-save-status {
+        align-self: center;
+        font-weight: 600;
+        color: var(--muted);
+        min-height: 20px;
+      }
+      .article-save-status.ok {
+        color: #b7f0c2;
+      }
+      .article-save-status.error {
+        color: #ff9a9a;
+      }
+      .admin-category-filters {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .admin-filter-btn.is-active {
+        background: var(--accent);
+        color: #241f29;
+      }
       @media (max-width: 980px) {
         .admin-grid {
           grid-template-columns: 1fr;
@@ -124,7 +149,7 @@
 
     <main class="admin-page">
       <div class="container admin-grid">
-        <section class="admin-card admin-card-login">
+        <section class="admin-card admin-card-login" id="admin-login-card">
           <h2>Вход администратора</h2>
           <form id="admin-login-form" class="admin-form">
             <label for="admin-email">Email</label>
@@ -133,14 +158,8 @@
             <input id="admin-password" type="password" required />
             <div class="admin-actions">
               <button type="submit" class="btn btn-small">Войти</button>
-              <button id="admin-logout-btn" type="button" class="btn btn-small btn-ghost">
-                Выйти
-              </button>
             </div>
           </form>
-          <p class="admin-note">
-            Админ создается в Supabase: Authentication -> Users -> Invite user.
-          </p>
           <p id="admin-status" class="admin-status"></p>
         </section>
 
@@ -153,7 +172,11 @@
             <button id="reload-articles-btn" type="button" class="btn btn-small btn-ghost">
               Обновить список
             </button>
+            <button id="admin-logout-btn" type="button" class="btn btn-small btn-ghost">
+              Выйти
+            </button>
           </div>
+          <div id="admin-category-filters" class="admin-category-filters"></div>
           <ul id="admin-articles-list" class="admin-list" style="margin-top:10px;"></ul>
         </section>
       </div>
@@ -204,7 +227,8 @@
             </div>
 
             <div class="admin-actions">
-              <button type="submit" class="btn">Сохранить</button>
+              <button id="article-save-btn" type="submit" class="btn">Сохранить</button>
+              <span id="article-save-status" class="article-save-status" aria-live="polite"></span>
               <button id="delete-article-btn" type="button" class="btn btn-ghost">Удалить</button>
             </div>
           </form>
