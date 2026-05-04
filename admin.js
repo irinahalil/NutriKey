@@ -9,9 +9,9 @@
   var editorSection = document.getElementById("admin-editor-section");
   var categoryFiltersEl = document.getElementById("admin-category-filters");
   var loginCard = document.getElementById("admin-login-card");
-  var loginNote = document.getElementById("admin-login-note");
   var saveBtn = document.getElementById("article-save-btn");
   var saveStatusEl = document.getElementById("article-save-status");
+  var editorBackBtn = document.getElementById("editor-back-btn");
 
   if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) {
     if (statusEl) {
@@ -44,22 +44,22 @@
 
   function setAuthorizedUI(isAuthorized) {
     if (articlesSection) articlesSection.classList.toggle("admin-hidden", !isAuthorized);
-    if (editorSection) editorSection.classList.toggle("admin-hidden", !isAuthorized);
+    if (editorSection) editorSection.classList.add("admin-hidden");
     if (loginCard) loginCard.classList.toggle("admin-hidden", isAuthorized);
-    if (loginNote) loginNote.classList.toggle("admin-hidden", isAuthorized);
     document.body.classList.toggle("admin-login-only", !isAuthorized);
     document.body.classList.toggle("admin-authorized", !!isAuthorized);
+  }
+
+  function setView(mode) {
+    var showEditor = mode === "editor";
+    if (articlesSection) articlesSection.classList.toggle("admin-hidden", showEditor);
+    if (editorSection) editorSection.classList.toggle("admin-hidden", !showEditor);
   }
 
   function setSaveStatus(text, type) {
     if (!saveStatusEl) return;
     saveStatusEl.className = "article-save-status" + (type ? " " + type : "");
     saveStatusEl.textContent = text || "";
-  }
-
-  function setArticlesListVisible(isVisible) {
-    if (listEl) listEl.classList.toggle("admin-hidden", !isVisible);
-    if (categoryFiltersEl) categoryFiltersEl.classList.toggle("admin-hidden", !isVisible);
   }
 
   function getValue(id) {
@@ -160,12 +160,11 @@
       setAuthorizedUI(false);
       setStatus("Войдите как администратор.", "");
       listEl.innerHTML = "";
-      setArticlesListVisible(true);
       return;
     }
 
     setAuthorizedUI(true);
-    setArticlesListVisible(true);
+    setView("list");
     setStatus("Загружаю статьи...", "");
     var result = await supabase
       .from(table)
@@ -198,14 +197,17 @@
 
     listEl.innerHTML = filtered
       .map(function (a) {
+        var categoryRu = categoryLabels[a.category] || a.category;
+        var excerpt = (a.excerpt_ru || "").trim();
+        var preview = excerpt || "Краткое описание не заполнено.";
         return (
           '<li class="admin-item">' +
           "<p><strong>" +
           a.title_ru +
           "</strong><br><small>" +
-          a.slug +
-          " • " +
-          a.category +
+          preview +
+          '</small><br><small>Категория: ' +
+          categoryRu +
           "</small></p>" +
           '<button class="btn btn-small btn-ghost" type="button" data-id="' +
           a.id +
@@ -314,7 +316,8 @@
       setSaveStatus("Сохранено", "ok");
       setStatus("Сохранено.", "ok");
       await loadArticles();
-      if (!id) resetEditor();
+      setView("list");
+      resetEditor();
       window.setTimeout(function () {
         setSaveStatus("", "");
       }, 1800);
@@ -342,6 +345,7 @@
     setStatus("Удалено.", "ok");
     resetEditor();
     await loadArticles();
+    setView("list");
   }
 
   async function onLogin(event) {
@@ -356,6 +360,7 @@
     setAuthorizedUI(true);
     setStatus("Вход выполнен.", "ok");
     await loadArticles();
+    setView("list");
   }
 
   async function onLogout() {
@@ -363,17 +368,21 @@
     setAuthorizedUI(false);
     setStatus("Вы вышли из админки.", "");
     setSaveStatus("", "");
-    setArticlesListVisible(true);
     listEl.innerHTML = "";
     resetEditor();
   }
 
   function onCreateNewArticle() {
     resetEditor();
-    setArticlesListVisible(false);
+    setView("editor");
     setStatus("Режим новой статьи: заполните поля и сохраните.", "ok");
     editorSection?.scrollIntoView({ behavior: "smooth", block: "start" });
     document.getElementById("article-title-ru")?.focus();
+  }
+
+  function onBackToList() {
+    setView("list");
+    setSaveStatus("", "");
   }
 
   document.getElementById("admin-login-form")?.addEventListener("submit", onLogin);
@@ -382,6 +391,7 @@
   document.getElementById("delete-article-btn")?.addEventListener("click", onDelete);
   document.getElementById("new-article-btn")?.addEventListener("click", onCreateNewArticle);
   document.getElementById("reload-articles-btn")?.addEventListener("click", loadArticles);
+  editorBackBtn?.addEventListener("click", onBackToList);
 
   listEl?.addEventListener("click", function (event) {
     var target = event.target && event.target.nodeType === 1 ? event.target : event.target?.parentElement;
@@ -393,7 +403,9 @@
     });
     if (article) {
       fillEditor(article);
-      setArticlesListVisible(true);
+      setView("editor");
+      setStatus("Редактирование статьи.", "ok");
+      editorSection?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
 

@@ -578,6 +578,7 @@ const initContactModal = function () {
 
   document.getElementById("nav-telegram-btn")?.addEventListener("click", onOpenClick);
   document.getElementById("hero-consult-btn")?.addEventListener("click", onOpenClick);
+  document.getElementById("ai-access-btn")?.addEventListener("click", onOpenClick);
   document.getElementById("cta-contact-btn")?.addEventListener("click", onOpenClick);
 
   closeBtn.addEventListener("click", closeModal);

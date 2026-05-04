@@ -160,6 +160,51 @@
         </div>
       </section>
 
+      <section class="section" id="ai-cabinet" aria-labelledby="ai-title">
+        <div class="container">
+          <h2 id="ai-title">Личный AI-кабинет по питанию</h2>
+          <p class="section-intro" id="ai-intro">
+            Персональный помощник, который помогает есть понятнее и спокойнее - под вашу цель и ритм жизни.
+          </p>
+
+          <div class="grid-3">
+            <article class="card">
+              <h3 id="ai-card1-title">Меню под вашу цель</h3>
+              <p id="ai-card1-text">
+                Снижение веса, поддержание или набор - без крайностей.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 id="ai-card2-title">Калории и БЖУ</h3>
+              <p id="ai-card2-text">
+                Ориентировочный расчет и подсказки по корректировке.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 id="ai-card3-title">Оценка блюда по фото</h3>
+              <p id="ai-card3-text">
+                Быстрая примерная оценка калорийности.
+              </p>
+            </article>
+          </div>
+
+          <p class="ai-access-note" id="ai-note">
+            Оценка по фото ориентировочная и может отличаться от фактических значений.
+          </p>
+
+          <div class="hero-actions ai-access-actions">
+            <button class="btn" type="button" id="ai-access-btn">Оставить заявку на доступ</button>
+            <a class="btn btn-ghost" id="ai-how-btn" href="#ai-access-how">Как это работает</a>
+          </div>
+
+          <p class="ai-access-how" id="ai-access-how">
+            Оставляете заявку -> получаете условия и реквизиты -> после подтверждения перевода активирую доступ в кабинет.
+          </p>
+        </div>
+      </section>
+
       <section class="section" aria-labelledby="approach-title">
         <div class="container split">
           <article class="card">
@@ -771,6 +816,20 @@
             expertiseTitle: "Моя экспертность",
             expertiseIntro:
               "Я работаю с питанием через систему, а не через запреты. Мой подход — не «идеально», а применимо в жизни.",
+            aiTitle: "Личный AI-кабинет по питанию",
+            aiIntro:
+              "Персональный помощник, который помогает есть понятнее и спокойнее - под вашу цель и ритм жизни.",
+            aiCard1Title: "Меню под вашу цель",
+            aiCard1Text: "Снижение веса, поддержание или набор - без крайностей.",
+            aiCard2Title: "Калории и БЖУ",
+            aiCard2Text: "Ориентировочный расчет и подсказки по корректировке.",
+            aiCard3Title: "Оценка блюда по фото",
+            aiCard3Text: "Быстрая примерная оценка калорийности.",
+            aiNote: "Оценка по фото ориентировочная и может отличаться от фактических значений.",
+            aiAccessBtn: "Оставить заявку на доступ",
+            aiHowBtn: "Как это работает",
+            aiHowText:
+              "Оставляете заявку -> получаете условия и реквизиты -> после подтверждения перевода активирую доступ в кабинет.",
             expCard1Title: "Калории и КБЖУ",
             expCard1Text:
               "Объясняю основу питания простым языком, чтобы вы понимали, что делаете и зачем.",
@@ -905,6 +964,21 @@
             expertiseTitle: "My Expertise",
             expertiseIntro:
               "I work with nutrition through a system, not through restrictions. My approach is not 'perfect' - it is practical for real life.",
+            aiTitle: "Personal AI Nutrition Cabinet",
+            aiIntro:
+              "A personal assistant that helps you eat with more clarity and calm - tailored to your goal and lifestyle.",
+            aiCard1Title: "Menu for Your Goal",
+            aiCard1Text: "Weight loss, maintenance, or gain - without extremes.",
+            aiCard2Title: "Calories and Macros",
+            aiCard2Text: "Estimated calculations and practical adjustment tips.",
+            aiCard3Title: "Photo-Based Meal Estimate",
+            aiCard3Text: "Quick approximate calorie estimate from a meal photo.",
+            aiNote:
+              "Photo-based estimates are approximate and may differ from actual values.",
+            aiAccessBtn: "Request Access",
+            aiHowBtn: "How it Works",
+            aiHowText:
+              "Leave a request -> receive terms and payment details -> access is activated after payment confirmation.",
             expCard1Title: "Calories and Macros",
             expCard1Text:
               "I explain nutrition basics in simple language, so you understand what you do and why.",
@@ -1005,6 +1079,18 @@
           document.getElementById("about-p2").textContent = t.aboutP2;
           document.getElementById("expertise-title").textContent = t.expertiseTitle;
           document.getElementById("expertise-intro").textContent = t.expertiseIntro;
+          document.getElementById("ai-title").textContent = t.aiTitle;
+          document.getElementById("ai-intro").textContent = t.aiIntro;
+          document.getElementById("ai-card1-title").textContent = t.aiCard1Title;
+          document.getElementById("ai-card1-text").textContent = t.aiCard1Text;
+          document.getElementById("ai-card2-title").textContent = t.aiCard2Title;
+          document.getElementById("ai-card2-text").textContent = t.aiCard2Text;
+          document.getElementById("ai-card3-title").textContent = t.aiCard3Title;
+          document.getElementById("ai-card3-text").textContent = t.aiCard3Text;
+          document.getElementById("ai-note").textContent = t.aiNote;
+          document.getElementById("ai-access-btn").textContent = t.aiAccessBtn;
+          document.getElementById("ai-how-btn").textContent = t.aiHowBtn;
+          document.getElementById("ai-access-how").textContent = t.aiHowText;
           document.getElementById("exp-card1-title").textContent = t.expCard1Title;
           document.getElementById("exp-card1-text").textContent = t.expCard1Text;
           document.getElementById("exp-card2-title").textContent = t.expCard2Title;

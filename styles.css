@@ -462,6 +462,21 @@ h2 {
   margin-top: 18px;
 }
 
+.ai-access-note {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.ai-access-actions {
+  margin-top: 14px;
+}
+
+.ai-access-how {
+  margin: 10px 0 0;
+  color: var(--muted);
+}
+
 .hero-main-actions {
   display: grid;
   grid-template-columns: repeat(3, max-content);
